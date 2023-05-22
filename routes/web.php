@@ -43,3 +43,10 @@ Route::get('/logics/test', function () {
 // git push -u -f origin master
 
 
+
+
+// git status
+//git add .
+//git commit -m "message"
+//git branch
+//git push origin master
