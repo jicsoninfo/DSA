@@ -76,6 +76,24 @@ let q = new qjsarr();
     console.log("deq value ="+deq_val2);
 
 
+//Javascript program to implement Queue using linked list
+class Nodell{
+    constructor(value){
+        this.value = value
+        this.next = null
+    }
+}
+
+class Queuell{
+    constructor(){
+        this.first = null
+        this.last = null
+        this.size = 0
+    }
+}
+
+
+
 
 
 // // Javascript program to implement Queue using  
