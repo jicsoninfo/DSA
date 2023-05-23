@@ -23,7 +23,7 @@
                 this.head = newNode;
                 this.tail = this.head;
             }else{
-                this.tail.nex = newNode;
+                this.tail.next = newNode;
                 this.tail = newNode;
             }
             this.length++;
@@ -31,7 +31,12 @@
         }
     }
 
-    
+
+    const newsinglyll = new SinglyLL;
+    newsinglyll.push(50);
+    newsinglyll.push(53);
+    newsinglyll.push(57);
+    console.log(newsinglyll);
 
     /*
     // We create a class for each node within the list
