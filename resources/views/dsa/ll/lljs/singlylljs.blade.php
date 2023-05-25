@@ -27,16 +27,36 @@
                 this.tail = newNode;
             }
             this.length++;
+            //console.warn(newNode);
             return this;
+        }
+
+        pop(){
+            if(!this.head) return undefined
+            const current = this.head;
+            const newTail = current;
+            while(current.next){
+                newTail = current;
+                current = current.next;
+            }
+            this.tail = newTail;
+            this.tail.next = null;
+            this.length--
+            if(this.length === 0){
+                this.head = null;
+                this.tail = null;
+            }
+            return current;
         }
     }
 
 
     const newsinglyll = new SinglyLL;
+    //console.log(newsinglyll);
     newsinglyll.push(50);
-    newsinglyll.push(53);
-    newsinglyll.push(57);
-    console.log(newsinglyll);
+    // newsinglyll.push(53);
+    // newsinglyll.push(57);
+    // console.log(newsinglyll);
 
     /*
     // We create a class for each node within the list
