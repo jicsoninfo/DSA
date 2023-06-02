@@ -211,8 +211,149 @@
                 // //print the content of list
                 // $MyList->PrintList();   
         ?>
+<?php 
+class CreateQueue {
+  public $front;
+  public $rear;
+
+  public $queue = array();
+
+  function __construct() {
+    $this->rear = -1;
+    $this->front = -1;
+  }
+
+  // create a function to check whether 
+  // the queue is empty or not 
+  public function isEmpty() {
+    if($this->rear == $this->front) {
+      echo "Queue is empty. \n";
+    } else {
+      echo "Queue is not empty. \n";
+    }
+  }
+
+  //create a function to return size of the queue 
+  public function size() {
+     return ($this->rear - $this->front);
+  }
+
+  //create a function to add new element  
+  public function EnQueue($x) {
+    $this->queue[++$this->rear] = $x;
+    echo $x." is added into the queue. \n";
+  }
+
+  //create a function to delete front element  
+  public function DeQueue() {
+    if($this->rear == $this->front){
+      echo "Queue is empty. \n";
+    } else {
+      $x = $this->queue[++$this->front];
+      echo $x." is deleted from the queue. \n";
+    }
+  }
+
+  //create a function to get front element  
+  public function frontElement() {
+    if($this->rear == $this->front) {
+      echo "Queue is empty. \n";
+    } else {
+      return $this->queue[$this->front+1];
+    }
+  }
+
+  //create a function to get rear element   
+  public function rearElement() {
+    if($this->rear == $this->front) {
+      echo "Queue is empty. \n";
+    } else {
+      return $this->queue[$this->rear];
+    }
+  }
+}
+
+// test the code 
+$MyQueue = new CreateQueue();
+$MyQueue->EnQueue(10);
+$MyQueue->EnQueue(20);
+$MyQueue->EnQueue(30);
+$MyQueue->EnQueue(40);
+
+$MyQueue->DeQueue();
+$MyQueue->isEmpty();
 
 
+?>
+
+<?php
+class CreateStack {
+  public $top;
+  public $stack = array();
+
+  function __construct() {
+    $this->top = -1;
+  }
+
+  // create a function to check whether 
+  // the stack is empty or not  
+  public function isEmpty() {
+    if($this->top == -1) {
+      echo "Stack is empty. \n";
+    } else {
+      echo "Stack is not empty. \n";
+    }
+  }
+
+  //create a function to return size of the stack 
+  public function size() { 
+     return $this->top+1;
+  }
+
+  //create a function to add new element 
+  public function push($x) {
+    $this->stack[++$this->top] = $x;
+    echo $x." is added into the stack. \n"; 
+  }
+
+  //create a function to delete top element   
+  public function pop() {
+    if($this->top < 0){
+      echo "Stack is empty. \n";
+    } else {
+      $x = $this->stack[$this->top--];
+      echo $x." is deleted from the stack. \n";
+    }    
+  }
+
+  public function topElement() {
+    if($this->top < 0) {
+      echo "Stack is empty. \n";
+    } else {
+      return $this->stack[$this->top];
+    }
+  }
+}
+
+// test the code 
+$MyStack = new CreateStack();
+$MyStack->push(10);
+$MyStack->push(20);
+$MyStack->push(30);
+$MyStack->push(40);
+
+$MyStack->pop();
+$MyStack->isEmpty();
+
+// The above code will give the following output:
+
+// 10 is added into the stack.
+// 20 is added into the stack.
+// 30 is added into the stack.
+// 40 is added into the stack.
+// 40 is deleted from the stack.
+// Stack is not empty.
+?>
 
 <script type="text/javascript">
     const js_arr = ['7', '5', '9', '4', '2', '0'];
