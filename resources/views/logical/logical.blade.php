@@ -41,7 +41,7 @@ function reversDigits($num){
 
 
 echo "<br>==================================</br>";
-echo "<br>below program sorting without function selection sort</br>";
+echo "<br>below program sorting without function (selection sort)</br>";
 $arr_selection = [65, 76, 5, 12, 22, 11, 10];
 $total_len = count($arr_selection);
 //$sorted_arr = [];
@@ -70,7 +70,50 @@ echo "<pre>";
 print_r($after_sort);
 
 echo "<br>==================================</br>";
+echo "<br>below program sorting without function(bubble sort)</br>";
+$arr_bubble = [56, 98, 63, 45, 16, 6, 49];
+$total_arr_len = count($arr_bubble);
+
+function bubble_sort($arr_bubble, $total_arr_len){
+    for($i=0;$i<$total_arr_len-1;$i++){
+        for($j=0; $j<$total_arr_len-1;$j++){
+            if($arr_bubble[$j]>$arr_bubble[$j+1]){
+                $temp = $arr_bubble[$j];
+                $arr_bubble[$j] = $arr_bubble[$j+1];
+                $arr_bubble[$j+1] = $temp;
+            }
+        }
+    }
+    return $arr_bubble;
+}
+echo "=============before sorting value=============";
+echo "<pre>";
+print_r($arr_bubble);
+echo "=============after sorting value=============";
+$after_bubble_sort = bubble_sort($arr_bubble, $total_arr_len);
+echo "<pre>";
+print_r($after_bubble_sort);
+
+
+echo "<br>==================================</br>";
+echo "<br>below program sorting without function(merge sort)</br>";
+
+
+
+echo "<br>==================================</br>";
+
+
+
+
+
 ?>
+
+
+
+
+
+
+
 
 <script>
     let str = "Teststring123 the quick brown";
