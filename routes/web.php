@@ -24,10 +24,14 @@ Route::get('/singlylljs', function () {
 Route::get('/jsq', function () {
     return view('dsa.queue.js.queuejs');
 });
+
 Route::get('/phpq', function () {
     return view('dsa.queue.queuephp');
 });
 
+Route::get('/phpstack', function () {
+    return view('dsa.stack.stackphp');
+});
 Route::get('/jstrees', function () {
     return view('dsa.trees.js.treesjs');
 });
