@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('dsa.ll.linklist');
 });
 
+Route::get('/csll', function () {
+    return view('dsa.ll.CircularSinglyLL');
+});
+
 Route::get('/singlylljs', function () {
     return view('dsa.ll.lljs.singlylljs');
 });
