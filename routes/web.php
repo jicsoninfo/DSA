@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('/csll', function () {
     return view('dsa.ll.CircularSinglyLL');
 });
+Route::get('/dll', function () {
+    return view('dsa.ll.DoublyLL');
+});
+Route::get('/cdll', function () {
+    return view('dsa.ll.CircularDoublyLL');
+});
 
 Route::get('/singlylljs', function () {
     return view('dsa.ll.lljs.singlylljs');
