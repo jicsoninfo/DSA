@@ -994,3 +994,52 @@ class SinglyLinkedList{
     }
 }
 </script>
+
+
+
+<?php 
+///push data on firts node in cirular doubly linked list
+//Add new element at the start of the list
+public function push_front($newElement) {
+    $newNode = new Node();
+    $newNode->data = $newElement;
+    $newNode->next = null; 
+    $newNode->prev = null;
+    if($this->head == null) {
+      $this->head = $newNode;
+      $newNode->next = $this->head;
+    } else {
+      $temp = new Node();
+      $temp = $this->head;
+      while($temp->next !== $this->head) {
+        $temp = $temp->next;
+      }
+      $temp->next = $newNode;
+      $newNode->prev = $temp;
+      $newNode->next = $this->head;
+      $this->head->prev = $newNode;
+      $this->head = $newNode;
+    }    
+  }
+//Add new element at the end of the list
+public function push_back($newElement) {
+    $newNode = new Node();
+    $newNode->data = $newElement;
+    $newNode->next = null; 
+    $newNode->prev = null;
+    if($this->head == null) {
+      $this->head = $newNode;
+      $newNode->next = $this->head;
+    } else {
+      $temp = new Node();
+      $temp = $this->head;
+      while($temp->next !== $this->head) {
+        $temp = $temp->next;
+      }
+      $temp->next = $newNode;
+      $newNode->next = $this->head;
+      $newNode->prev = $temp;
+      $this->head->prev = $newNode;
+    }    
+  }
+?>

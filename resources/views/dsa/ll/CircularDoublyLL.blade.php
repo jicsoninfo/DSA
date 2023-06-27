@@ -1,4 +1,7 @@
 <?php
+
+use CDLLNode as GlobalCDLLNode;
+
 echo "Circular Doubly LL";
 
 class CDLLNode{
@@ -9,9 +12,14 @@ class CDLLNode{
 
 class cdll{
     public $head;
+    // public $head_next;
+    // public $head_prev;
+
     public function __construct()
     {
         $this->head = null;
+        // $this->head_next = null;
+        // $this->head_prev = null;
     }
 
      //display the content of the list
@@ -30,26 +38,89 @@ class cdll{
             } else {
             echo "The list is empty.\n";
             }
-        }    
+        }
+        
+        public function push_front($newElemnet){
+            $newNode = new CDLLNode();
+            $newNode->data = $newElemnet;
+            $newNode->next = null;
+            $newNode->prev = null;
+
+            if($this->head == null){
+                $this->head = $newNode;
+                $newNode->next = $this->head;
+            }else{
+                $temp = new CDLLNode();
+                $temp = $this->head;
+                while($temp->next !== $this->head){
+                    $temp = $temp->next;
+                }
+                $temp->next = $newNode;
+                $newNode->next = $this->head;
+                $newNode->prev = $temp;
+                $this->head->prev = $newNode;
+                $this->head = $newNode;
+            }
+
+        }
     
 }
 
 $cdll = new cdll();
 
 
-$cdll01 = new CDLLNode();
-$cdll01->data = 13;
-$cdll01->next = null;
-$cdll01->prev = null;
-$cdll->head = $cdll01;
-$cdll01->next = $cdll->head;
-$cdll01->prev = $cdll->head;
+$data = ['93', '84', '75', '66', '57', '48', '39'];
+$ll1 = "";
+$ll2 = "";
+foreach($data as $key=>$value){
+    $ll1 = 'll'.$key;
+    if($key == 0){
+    $ll1 = new CDLLNode();
+    $ll1->data = $value;
+    $ll1->prev =  null;
+    $ll1->next =  $cdll->head;
+    $cdll->head = $ll1;
+    $cdll->head->prev = $ll1;
+    $ll2 = $ll1;
+    }
+    else{
+        $ll1 = new CDLLNode();
+        $ll1->data = $value;
+        $ll1->prev = $ll2;
+        $ll1->next = $cdll->head;
+        $ll2->next = $ll1;
+        $cdll->head->prev = $ll2;
+        $ll2= $ll1;
+    }
 
-$cdll02 = new CDLLNode();
-$cdll02->data = 16;
-$cdll02->prev = $cdll01->next;
-$cdll01->next = $cdll02->prev;
-$cdll02->next = $cdll01->prev;
+}
+
+
+
+// $cdll01 = new CDLLNode();
+// $cdll01->data = 13;
+// $cdll01->next = null;
+// $cdll01->prev = null;
+// $cdll->head = $cdll01;
+// $cdll01->next = $cdll->head;
+// $cdll->head->prev = $cdll01;
+// //$cdll->head->data = 50;
+
+// $cdll02 = new CDLLNode();
+// $cdll02->data = 16;
+// $cdll02->next = null;
+// $cdll02->prev = $cdll01;
+// $cdll01->next = $cdll02;
+// $cdll02->next = $cdll->head;
+// $cdll->head->prev =  $cdll02;
+
+// $cdll03 = new GlobalCDLLNode();
+// $cdll03->data = 19;
+// $cdll03->next = null;
+// $cdll03->prev = $cdll02;
+// $cdll02->next = $cdll03;
+// $cdll03->next = $cdll->head;
+// $cdll->head->prev = $cdll03;
 
 
 /*
@@ -93,7 +164,9 @@ $cdll->head->prev = $third;
 $cdll->PrintList();
 */
 
+$cdll->push_front(20);
+$cdll->push_front(26);
 $cdll->PrintList();
-echo "<pre>";
-print_r($cdll);
+//echo "<pre>";
+//print_r($cdll);
 ?>
