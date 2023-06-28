@@ -1042,4 +1042,50 @@ public function push_back($newElement) {
       $this->head->prev = $newNode;
     }    
   }
+
+  //Inserts a new element at the given position 
+  public function push_at($newElement, $position) {     
+    $newNode = new Node(); 
+    $newNode->data = $newElement;
+    $newNode->next = null;
+    $temp = $this->head;
+    $NoOfElements = 0;
+
+    if($temp != null) {
+      $NoOfElements++;
+      $temp = $temp->next;
+    }
+    while($temp != $this->head) {
+      $NoOfElements++;
+      $temp = $temp->next;
+    }
+
+    if($position < 1 || $position > ($NoOfElements+1)) {
+      echo "\nInvalid position.";
+    } else if ($position == 1) {
+      if($this->head == null) {
+        $this->head = $newNode;
+        $this->head->next = $this->head;
+        $this->head->prev = $this->head;
+      } else {
+        while($temp->next != $this->head) {
+          $temp = $temp->next;
+        }
+        $temp->next = $newNode;
+        $newNode->prev = $temp;
+        $newNode->next = $this->head;
+        $this->head->prev = $newNode;
+        $this->head = $newNode;
+      }
+    } else {
+
+      $temp = $this->head;
+      for($i = 1; $i < $position-1; $i++) 
+        $temp = $temp->next;
+      $newNode->next = $temp->next;
+      $newNode->next->prev = $newNode;
+      $newNode->prev = $temp;
+      $temp->next = $newNode;  
+    }
+  } 
 ?>

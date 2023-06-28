@@ -40,6 +40,7 @@ class cdll{
             }
         }
         
+        //Add new element at the start of the list
         public function push_front($newElemnet){
             $newNode = new CDLLNode();
             $newNode->data = $newElemnet;
@@ -63,6 +64,56 @@ class cdll{
             }
 
         }
+
+        //Add new element at the end of the list
+        public function push_back($newElemnet){
+            $newNode = new CDLLNode;
+            $newNode->data = $newElemnet;
+            $newNode->next = null;
+            $newNode->prev = null;
+
+            if($this->head == null){
+                $this->head = $newNode;
+                $newNode->next = $this->head;
+            }else{
+                $temp = new CDLLNode;
+                $temp = $this->head;
+                while($temp->next !== $this->head){
+                    $temp = $temp->next;
+                }
+                $temp->next = $newNode;
+                $newNode->next = $this->head;
+                $newNode->prev = $temp;
+                $this->head->prev = $newNode;
+
+            }
+        }
+
+        //Inserts a new element at the given position 
+        public function push_at($newElemnet, $position){
+            $newNode = new CDLLNode;
+            $newNode->data = $newElemnet;
+            $newNode->next = null;
+            //$newNode->prev = null;
+            $temp = $this->head;
+            $NoOfElements = 0;
+            if($temp != null){
+                    $NoOfElements++;
+                    $temp = $temp->next;
+            }
+            while($temp != $this->head)
+            {
+                $NoOfElements++;
+                $temp = $temp->next;
+            }
+
+            if($position < 1 || $position > ($NoOfElements+1)){
+                echo "\nInvalid position.</br>";
+            }else if($position == 1){
+                
+            }
+        }
+        
     
 }
 
@@ -166,6 +217,9 @@ $cdll->PrintList();
 
 $cdll->push_front(20);
 $cdll->push_front(26);
+
+$cdll->push_back(57);
+$cdll->push_back(59);
 $cdll->PrintList();
 //echo "<pre>";
 //print_r($cdll);
