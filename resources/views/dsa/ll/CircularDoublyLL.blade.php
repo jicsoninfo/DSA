@@ -110,7 +110,25 @@ class cdll{
             if($position < 1 || $position > ($NoOfElements+1)){
                 echo "\nInvalid position.</br>";
             }else if($position == 1){
-                
+                if($this->head == null){
+                    $this->head = $newNode;
+                    $this->head->next = $this->head;
+                    $this->head->prev = $this->head;
+                }else{
+                    while($temp->next != $this->head){
+                        $temp = $temp->next;
+                    }
+                    $temp->next = $newNode;
+                    $newNode->next = $temp;
+                    $newNode->prev = $this->head;
+                    $this->head->prev = $newNode;
+                    $this->head = $newNode;
+                }
+            }else{
+                $temp = $this->head;
+                for($i=1; $i<$position-1; $i++){
+                    
+                }
             }
         }
         
