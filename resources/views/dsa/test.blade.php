@@ -1088,4 +1088,23 @@ public function push_back($newElement) {
       $temp->next = $newNode;  
     }
   } 
+
+  //Delete first node of the list
+  public function pop_front() {
+    if($this->head != null) {
+      if($this->head->next == $this->head) {
+        $this->head = null;
+      } else {
+        $temp = $this->head;
+        $firstNode = $this->head;
+        while($temp->next != $this->head) {
+          $temp = $temp->next;
+        }
+        $this->head = $this->head->next;
+        $this->head->prev = $temp;
+        $temp->next = $this->head; 
+        $firstNode = null; 
+      }
+    }
+  }
 ?>
