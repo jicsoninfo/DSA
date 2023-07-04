@@ -1107,4 +1107,62 @@ public function push_back($newElement) {
       }
     }
   }
+
+  //Delete last node of the list
+  public function pop_back() {
+    if($this->head != null) {
+      if($this->head->next == $this->head) {
+        $this->head = null;
+      } else {
+        $temp = new Node();
+        $temp = $this->head;
+        while($temp->next->next != $this->head)
+          $temp = $temp->next;
+        $lastNode = $temp->next;
+        $temp->next = $this->head;
+        $this->head->prev = $temp; 
+        $lastNode = null;
+      }
+    }
+  }
+
+  //Delete an element at the given position
+  public function pop_at($position) {     
+    $nodeToDelete = $this->head;
+    $temp = $this->head;
+    $NoOfElements = 0;
+
+    if($temp != null) {
+      $NoOfElements++;
+      $temp = $temp->next;
+    }
+    while($temp != $this->head) {
+      $NoOfElements++;
+      $temp = $temp->next;
+    }
+
+    if($position < 1 || $position > $NoOfElements) {
+      echo "\nInvalid position.";
+    } else if ($position == 1) {
+      if($this->head->next == $this->head) {
+        $this->head = null;
+      } else {
+        while($temp->next != $this->head)
+          $temp = $temp->next;
+        $this->head = $this->head->next;
+        $temp->next = $this->head; 
+        $this->head->prev = $temp;
+        $nodeToDelete = null; 
+      }
+    } else {
+      $temp = $this->head;
+      for($i = 1; $i < $position-1; $i++) 
+        $temp = $temp->next;
+      $nodeToDelete = $temp->next;
+      $temp->next = $temp->next->next;
+      $temp->next->prev = $temp;
+      $nodeToDelete = null;  
+    }
+  } 
+
 ?>

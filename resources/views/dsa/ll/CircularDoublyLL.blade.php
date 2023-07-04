@@ -140,8 +140,43 @@ class cdll{
         
     //Delete first node of the list
     public function pop_front(){
-        
+        if($this->head != null){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                $temp = $this->head;
+                //$firstNode = $this->head;
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $this->head->prev = $temp;
+                $temp->next = $this->head;
+                //$firstNode = null;
+            }
+            
+        }
     }
+
+    //Delete last nost of the list
+    public function pop_back(){
+        if($this->head != null){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                $temp = new CDLLNode();
+                $temp = $this->head;
+                while($temp->next == $this->head){
+                    $temp = $temp->next;
+                }
+                $temp->next = $this->head;
+                $this->head->prev = $temp;
+            }
+        }
+    }
+
+
+
 }
 
 $cdll = new cdll();
@@ -245,10 +280,18 @@ $cdll->PrintList();
 $cdll->push_front(20);
 $cdll->push_front(26);
 
-$cdll->push_back(57);
-$cdll->push_back(59);
+// $cdll->push_back(57);
+// $cdll->push_back(59);
 
-$cdll->push_at(84, 3);
+//$cdll->push_at(84, 3);
+
+// $cdll->pop_front();
+// $cdll->pop_front();
+
+
+//$cdll->pop_back();
+//$cdll->pop_back();
+
 $cdll->PrintList();
 // $cdll->push_at(85, 1);
 // $cdll->PrintList();
