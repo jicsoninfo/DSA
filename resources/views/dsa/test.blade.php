@@ -1117,7 +1117,7 @@ public function push_back($newElement) {
         $temp = new Node();
         $temp = $this->head;
         while($temp->next->next != $this->head)
-          $temp = $temp->next;
+        $temp = $temp->next;
         $lastNode = $temp->next;
         $temp->next = $this->head;
         $this->head->prev = $temp; 
