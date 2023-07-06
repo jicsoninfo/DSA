@@ -71,3 +71,6 @@ Route::get('/logics/test', function () {
 //git commit -m "message"
 //git branch
 //git push origin master
+
+//https://www.photowall.se/
+//https://creator.nightcafe.studio/

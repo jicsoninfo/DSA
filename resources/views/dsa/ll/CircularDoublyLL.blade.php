@@ -1,6 +1,6 @@
 <?php
 
-use CDLLNode as GlobalCDLLNode;
+
 
 echo "Circular Doubly LL";
 
@@ -130,11 +130,12 @@ class cdll{
                 $temp = $this->head;
                 for($i=1; $i<$position-1; $i++){
                     $temp = $temp->next;
+                }
                     $newNode->next = $temp->next;
                     $newNode->next->prev = $newNode;
                     $newNode->prev = $temp;
                     $temp->next = $newNode;
-                }
+                //}
             }
         }
         
@@ -158,7 +159,7 @@ class cdll{
         }
     }
 
-    //Delete last nost of the list
+    //Delete last node of the list
     public function pop_back(){
         if($this->head != null){
             if($this->head->next == $this->head){
@@ -166,7 +167,7 @@ class cdll{
             }else{
                 $temp = new CDLLNode();
                 $temp = $this->head;
-                while($temp->next == $this->head){
+                while($temp->next->next != $this->head){
                     $temp = $temp->next;
                 }
                 $temp->next = $this->head;
@@ -174,6 +175,94 @@ class cdll{
             }
         }
     }
+
+    //Delete an element at the given position
+    public function pop_at($position){
+        //$nodeToDelete = $this->head;
+        $temp = $this->head;
+        $NoOfElements = 0;
+
+        if($temp != null){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+        if($position < 1 || $position > $NoOfElements){
+            echo "<br />\nInvalid position for delete.<br/>";
+        }else if($position == 1){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            } else{
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $temp->next = $this->head;
+                $this->head->prev = $temp;
+                //$nodeToDelete = null;
+            }
+        }else{
+            $temp = $this->head;
+            for($i=1; $i<$position-1; $i++){
+                $temp =$temp->next;
+                //$nodeToDelete = $temp->next;
+            }
+            $temp->next = $temp->next->next;
+            $temp->next->prev = $temp;
+            //$nodeToDelete = null;
+
+        }
+
+    }
+
+
+    //Delete all nodes of the list
+    public function deleteAllNodes(){
+        if($this->head != null){
+            $temp = new CDLLNode();
+            $current = new CDLLNode();
+            $current = $this->head->next;
+            while($current != $this->head){
+                $temp = $current->next;
+                $current = null;
+                $current = $temp;
+            }
+            $this->head = null;
+            echo "<br/> All nodes are deleted successfully <br/>";
+
+        }else{
+            echo "<br/> the list is empty <br />";
+        }
+    }
+
+    //Count nodes in the list
+    public function countNodes(){
+        $temp = new CDLLNode();
+        $temp = $this->head;
+        $i=0;
+        if($temp != null){
+            $i++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $i++;
+            $temp = $temp->next;
+        }
+        echo "<br/ > Total number of node is = " .$i;
+        //return $i;
+    }
+
+    //Delete even nodes of the list
+    public function deleteEvenNodes(){
+        if($this->head != null || $this->head->next != $this->head ){
+            
+        }
+    }
+
+
 
 
 
@@ -283,14 +372,19 @@ $cdll->push_front(26);
 // $cdll->push_back(57);
 // $cdll->push_back(59);
 
-//$cdll->push_at(84, 3);
+$cdll->push_at(84, 5);
 
-// $cdll->pop_front();
-// $cdll->pop_front();
-
+//$cdll->pop_front();
+//$cdll->pop_front();
 
 //$cdll->pop_back();
 //$cdll->pop_back();
+
+$cdll->pop_at(9);
+
+//$cdll->deleteAllNodes();
+
+$cdll->countNodes();
 
 $cdll->PrintList();
 // $cdll->push_at(85, 1);

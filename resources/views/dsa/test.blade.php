@@ -1165,4 +1165,296 @@ public function push_back($newElement) {
     }
   } 
 
+
+  //delete all nodes of the list
+  public function deleteAllNodes() {
+    if($this->head != null) {
+      $temp = new Node();
+      $current = new Node();
+      $current = $this->head->next;
+      while($current != $this->head) {
+        $temp = $current->next;
+        $current = null;
+        $current = $temp;
+      }
+      $this->head = null;
+    }
+    echo "All nodes are deleted successfully.\n";  
+  }
+
+ //count nodes in the list
+  public function countNodes() {
+    $temp = new Node();
+    $temp = $this->head;
+    $i = 0;
+    if ($temp != null) {
+      $i++;
+      $temp = $temp->next;
+    }
+    while($temp != $this->head) {
+      $i++;
+      $temp = $temp->next;
+    }  
+    return $i;  
+  }  
+//delete even nodes of the list
+  public function deleteEvenNodes() {
+    if($this->head != null && $this->head->next != $this->head) {
+      $oddNode = $this->head;
+      $evenNode = $this->head->next; 
+      $temp = new Node();
+      while(true) {
+        $temp = $oddNode;
+        $oddNode->next = $evenNode->next;
+        $oddNode->next->prev = $oddNode;
+        $evenNode = null;
+        $oddNode = $oddNode->next;
+        $evenNode = $oddNode->next;
+        if($oddNode == $this->head || $evenNode == $this->head)
+          break;
+      }
+      if($oddNode == $this->head) {
+        $temp->next = $this->head;
+        $this->head->prev = $temp;
+      } else {
+        $oddNode->next = $this->head;
+        $this->head->prev = $oddNode;
+      }
+    }
+  } 
+
+
+  //delete odd nodes of the list
+  public function deleteOddNodes() {
+    if($this->head != null && $this->head->next == $this->head) {
+      $this->head = null;
+    } else if($this->head != null) {
+     
+      $temp = $this->head;
+      while($temp->next != $this->head) {
+        $temp = $temp->next;
+      }
+      $temp->next = $this->head->next;
+      $this->head->next->prev = $temp;
+      $this->head = null;
+      $this->head = $temp->next;
+
+      if($this->head != null && $this->head->next != $this->head) {
+
+        $evenNode = $this->head;
+        $oddNode = $this->head->next; 
+        while(true) {
+          $temp = $evenNode;
+          $evenNode->next = $oddNode->next;
+          $evenNode->next->prev = $evenNode;
+          $oddNode = null;
+          $evenNode = $evenNode->next;
+          $oddNode = $evenNode->next;
+          if($evenNode == $this->head || $oddNode == $this->head)
+            break;
+        }
+        
+        if($evenNode == $this->head) {
+          $temp->next = $this->head;
+          $this->head->prev = $temp;
+        } else {
+          $evenNode->next = $this->head;
+          $this->head->prev = $evenNode;
+        }
+      }
+    } 
+  } 
+
+
+  //Search an element in the list
+  public function SearchElement($searchValue) {
+    $temp = new Node();
+    $temp = $this->head;
+    $found = 0;
+    $i = 0;
+
+    if($temp != null) {
+      while(true) {
+        $i++;
+        if($temp->data == $searchValue) {
+          $found++;
+          break;
+        }
+        $temp = $temp->next;
+        if($temp == $this->head) {break;}
+      }
+      if ($found == 1) {
+        echo $searchValue." is found at index = ".$i.".\n";
+      } else {
+        echo $searchValue." is not found in the list.\n";
+      }
+    } else {
+      echo "The list is empty.\n";
+    }
+  } 
+  
+   //Delete first node by key
+  public function pop_first($key) { 
+    if($this->head != null) {
+      $temp = $this->head;
+      $nodeToDelete = $this->head;
+      $lastNode = new Node();
+      if($temp->data == $key) {
+        if($temp->next == $this->head) {
+          $this->head = null;
+        } else {
+          $lastNode = $this->head->prev;
+          $this->head = $this->head->next;
+          $lastNode->next = $this->head;
+          $this->head->prev = $lastNode;
+          $nodeToDelete = null; 
+        }
+      } else {
+        while($temp->next != $this->head) {
+          if($temp->next->data == $key) {
+            $nodeToDelete = $temp->next;
+            $temp->next = $temp->next->next;
+            $temp->next->prev = $temp;
+            $nodeToDelete = null;
+            break; 
+          }
+          $temp = $temp->next;
+        }
+      }
+    }
+  }
+
+  //Delete last node by key
+  public function pop_last($key) {       
+    if($this->head != null) {
+      $temp = new Node();
+      $previousToLast = null;
+      $lastNode = null;
+      
+      if($this->head->data == $key) 
+        $lastNode = $this->head;
+      
+      $temp = $this->head;
+      while($temp->next != $this->head) {
+        if($temp->next->data == $key) {
+          $previousToLast = $temp;
+          $lastNode = $temp->next;
+        }
+        $temp = $temp->next;
+      }
+   
+      if($lastNode != null) {
+        if($lastNode == $this->head) {
+          if($this->head->next == $this->head)
+            $this->head = null;
+          else {
+            $this->head->prev->next = $this->head->next;
+            $this->head = $this->head->next;
+          }
+          $lastNode = null;
+        } else {
+          $previousToLast->next = $lastNode->next;
+          $previousToLast->next->prev = $previousToLast;
+          $lastNode = null;
+        }
+      }
+    }
+  } 
+
+  //Delete all nodes by key
+  public function pop_all($key) {     
+    $nodeToDelete = new Node();
+    $temp = new Node();
+    
+    while($this->head != null && $this->head->data == $key) {
+
+      if($this->head->next == $this->head) {
+        $this->head = null;
+      } else {
+        $nodeToDelete = $this->head;
+        $temp = $this->head;
+        while($temp->next != $this->head) {
+          $temp = $temp->next;
+        } 
+        $this->head = $this->head->next;
+        $temp->next = $this->head;   
+        $this->head->prev = $temp;
+        $nodeToDelete = null;
+      }
+    }
+
+    $temp = $this->head;        
+    if($temp != null) {
+      while($temp->next != $this->head) {
+        if($temp->next->data == $key) {
+          $nodeToDelete = $temp->next;
+          $temp->next = $temp->next->next;
+          $temp->next->prev = $temp;
+          $nodeToDelete = null;
+        } else {
+          $temp = $temp->next;
+        }
+      }
+    }
+  } 
+
+
+  //reverse the list
+  public function reverseList() {
+    if($this->head != null) {
+      $prevNode = $this->head;
+      $tempNode = $this->head;
+      $curNode = $this->head->next;
+      
+      $prevNode->next = $prevNode;
+      $prevNode->prev = $prevNode;
+      
+      while($curNode != $this->head) { 
+        $tempNode = $curNode->next;
+
+        $curNode->next = $prevNode;
+        $prevNode->prev = $curNode;
+        $this->head->next = $curNode;
+        $curNode->prev = $this->head;
+
+        $prevNode = $curNode;
+        $curNode = $tempNode;
+      }
+
+      $this->head = $prevNode;
+    }
+  } 
+
+
+  //swap node values
+  public function swapNodeValues($node1, $node2) {
+    
+    $temp = new Node();
+    $temp = $this->head;
+    $N = 0;
+    if ($temp != null) {
+      $N++;
+      $temp = $temp->next;
+    }
+    while($temp != $this->head) {
+      $N++;
+      $temp = $temp->next;
+    }
+
+    if($node1 < 1 || $node1 > $N || $node2 < 1 || $node2 > $N)
+      return;
+
+    $pos1 = $this->head;
+    $pos2 = $this->head;
+    for($i = 1; $i < $node1; $i++) {
+      $pos1 = $pos1->next;
+    }
+    for($i = 1; $i < $node2; $i++) {
+      $pos2 = $pos2->next;
+    }
+
+    $val = $pos1->data;
+    $pos1->data = $pos2->data;
+    $pos2->data = $val;
+  }   
 ?>
