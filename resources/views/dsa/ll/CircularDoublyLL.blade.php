@@ -27,7 +27,7 @@ class cdll{
             $temp = new CDLLNode();
             $temp = $this->head;
             if($temp != null) {
-            echo "The list contains: <br />";
+            echo "<br />The list contains: <br />";
             while(true) {
                 echo $temp->data."<br /> ";
                 $temp = $temp->next;
@@ -258,9 +258,40 @@ class cdll{
     //Delete even nodes of the list
     public function deleteEvenNodes(){
         if($this->head != null || $this->head->next != $this->head ){
-            
+            $oddNode = $this->head;
+            $evenNode = $this->head->next;
+            $temp =  new CDLLNode();
+            while(true){
+                $temp = $oddNode;
+                $oddNode->next = $evenNode->next;
+                $oddNode->next->prev = $oddNode;
+                $evenNode = null;
+                $oddNode = $oddNode->next;
+                $evenNode = $oddNode->next;
+                if($oddNode == $this->head || $evenNode == $this->head){
+                    break;
+                }
+            }
+            if($oddNode == $this->head){
+                $temp->next = $this->head;
+                $this->head->prev = $temp;
+            }else{
+                $oddNode->next = $this->head;
+                $this->head->prev = $oddNode;
+            }
         }
     }
+
+    //Delete odd nodes of the list
+    public function deleteOddNodes(){
+        if($this->head != null && $this->head->next == $this->head){
+
+        }
+    }
+
+
+
+
 
 
 
@@ -372,7 +403,7 @@ $cdll->push_front(26);
 // $cdll->push_back(57);
 // $cdll->push_back(59);
 
-$cdll->push_at(84, 5);
+$cdll->push_at(69, 5);
 
 //$cdll->pop_front();
 //$cdll->pop_front();
@@ -385,7 +416,10 @@ $cdll->pop_at(9);
 //$cdll->deleteAllNodes();
 
 $cdll->countNodes();
-
+echo "==================================";
+$cdll->PrintList();
+$cdll->deleteEvenNodes();
+echo "==================================";
 $cdll->PrintList();
 // $cdll->push_at(85, 1);
 // $cdll->PrintList();
