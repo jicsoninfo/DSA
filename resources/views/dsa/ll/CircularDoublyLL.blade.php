@@ -285,7 +285,9 @@ class cdll{
     //Delete odd nodes of the list
     public function deleteOddNodes(){
         if($this->head != null && $this->head->next == $this->head){
-
+            $this->head = null;
+        }elseif($this->head != null){
+            $temp = $this->head;
         }
     }
 
