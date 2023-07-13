@@ -288,7 +288,103 @@ class cdll{
             $this->head = null;
         }elseif($this->head != null){
             $temp = $this->head;
+            while($temp->next != $this->head){
+                $temp = $temp->next;
+            }
+            $temp->next = $this->head->next;
+            $this->head->next->prev = $temp;
+            $this->head = null;
+            $this->head = $temp->next;
+            if($this->head != null && $this->head->next != $this->head){
+                $evenNode = $this->head;
+                $oddNode = $this->head->next;
+                while(true){
+                    $temp = $evenNode;
+                    $evenNode->next = $oddNode->next;
+                    $evenNode->next->prev = $evenNode;
+                    $oddNode = null;
+                    $evenNode = $evenNode->next;
+                    $oddNode = $evenNode->next;
+                    if($evenNode == $this->head || $oddNode == $this->head){
+                        break;
+                    }
+                }
+                if($evenNode == $this->head){
+                    $temp->next = $this->head;
+                    $this->head->prev = $temp;
+                }else{
+                    $evenNode->next = $this->head;
+                    $this->head->prev = $evenNode;
+                }
+            }
         }
+    }
+
+    //Search an element in the list
+    public function SearchElement($searchValue){
+        $temp = new CDLLNode();
+        $temp = $this->head;
+        $found = 0;
+        $i = 0;
+
+        if($temp != null){
+            while(true){
+                $i++;
+                if($temp->data == $searchValue){
+                    $found++;
+                    break;
+                }
+                $temp = $temp->next;
+                if($temp == $this->head){
+                    break;
+                }
+            }
+            if($found == 1){
+                echo $searchValue. "is found at index = ".$i." .\n";
+            }else{
+                echo $searchValue. " is not found in the list . \n";
+            }
+        }else{
+            echo "<br/> The list is empty. <br />.\n";
+        }
+    }
+
+    //Delete first node by key
+    public function pop_first($key){
+        if($this->head != null){
+            $temp = $this->head;
+            $nodeToDelete = $this->head;
+            $lastNode = new CDLLNode;
+            if($temp->data == $key){
+                if($temp->next == $this->head){
+                    $this->head = null;
+                }else{
+                    $lastNode = $this->head->prev;
+                    $this->head = $this->head->next;
+                    $lastNode->next = $this->head;
+                    $this->head->prev = $lastNode;
+                    $nodeToDelete = null;
+                }
+            }else{
+                while($temp->next != $this->head){
+                    if($temp->next->data == $key){
+                        $nodeToDelete = $temp->next;
+                        $temp->next = $temp->next->next;
+                        $temp->next->prev = $temp;
+                        $nodeToDelete = null;
+                        break;
+                    }
+                    $temp = $temp->next;
+                }
+            }
+        }else{
+            echo "<br/> The list is empty. <br />.\n";
+        }
+    }
+
+    //Delete last node by key
+    public function pop_last($key){
+        
     }
 
 
@@ -304,7 +400,7 @@ class cdll{
 $cdll = new cdll();
 
 
-$data = ['93', '84', '75', '66', '57', '48', '39'];
+$data = ['93', '84', '75', '66', '57', '48', '39', '84', '84'];
 $ll1 = "";
 $ll2 = "";
 foreach($data as $key=>$value){
@@ -420,9 +516,16 @@ $cdll->pop_at(9);
 $cdll->countNodes();
 echo "==================================";
 $cdll->PrintList();
-$cdll->deleteEvenNodes();
+//$cdll->deleteEvenNodes();
+//$cdll->deleteOddNodes();
+//$cdll->SearchElement(84);
+$cdll->pop_first(84);
 echo "==================================";
 $cdll->PrintList();
+//$cdll->SearchElement(84);
+//$cdll->pop_first(84);
+
+
 // $cdll->push_at(85, 1);
 // $cdll->PrintList();
 // $cdll->push_at(87, 1);
