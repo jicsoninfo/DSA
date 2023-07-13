@@ -74,3 +74,4 @@ Route::get('/logics/test', function () {
 
 //https://www.photowall.se/
 //https://creator.nightcafe.studio/
+//https://www.alphacodingskills.com/php/php-data-structures.php
