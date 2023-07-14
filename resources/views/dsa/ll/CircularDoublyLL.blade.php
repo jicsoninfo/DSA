@@ -1,6 +1,6 @@
 <?php
 
-
+//use CDLLNode as GlobalCDLLNode;
 
 echo "Circular Doubly LL";
 
@@ -384,7 +384,37 @@ class cdll{
 
     //Delete last node by key
     public function pop_last($key){
-        
+        if($this->head != null){
+            $temp = new CDLLNode();
+            $previousToLast = null;
+            $lastNode = null;
+            if($this->head->data == $key){
+                $lastNode = $this->head;
+            }
+            $temp = $this->head;
+            while($temp->next != $this->head){
+                if($temp->next->data == $key){
+                    $previousToLast = $temp;
+                    $lastNode = $temp->next;
+                }
+                $temp = $temp->next;
+            }
+            if($lastNode != null){
+                if($lastNode == $this->head){
+                    if($this->head->next == $this->head){
+                        $this->head = null;
+                    }else{
+                        $this->head->prev->next = $this->head->next;
+                        $this->head = $this->head->next;
+                    }
+                    $lastNode = null;
+                }else{
+                    $previousToLast->next = $lastNode->next;
+                    $previousToLast->next->prev = $previousToLast;
+                    $lastNode = null;
+                }
+            }
+        }
     }
 
 
@@ -400,7 +430,7 @@ class cdll{
 $cdll = new cdll();
 
 
-$data = ['93', '84', '75', '66', '57', '48', '39', '84', '84'];
+$data = ['93', '84', '75', '66', '57', '48', '39', '84', '55', '84'];
 $ll1 = "";
 $ll2 = "";
 foreach($data as $key=>$value){
@@ -519,7 +549,8 @@ $cdll->PrintList();
 //$cdll->deleteEvenNodes();
 //$cdll->deleteOddNodes();
 //$cdll->SearchElement(84);
-$cdll->pop_first(84);
+//$cdll->pop_first(84);
+$cdll->pop_last(84);
 echo "==================================";
 $cdll->PrintList();
 //$cdll->SearchElement(84);
