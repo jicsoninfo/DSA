@@ -417,6 +417,62 @@ class cdll{
         }
     }
 
+    //Delete all nodes by key
+    public function pop_all($key){
+        $nodeToDelete = new CDLLNode();
+        $temp = new CDLLNode();
+        while($this->head != null && $this->head->data == $key){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                $nodeToDelete = $this->head;
+                $temp = $this->head;
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $temp->next = $this->head;
+                $this->head->prev = $temp;
+                $nodeToDelete = null;
+            }
+        }
+        $temp = $this->head;
+        if($temp != null){
+            while($temp->next != $this->head){
+                if($temp->next->data == $key){
+                    $nodeToDelete = $temp->next;
+                    $temp->next = $temp->next->next;
+                    $temp->next->prev = $temp;
+                    $nodeToDelete = null;
+                }else{
+                    $temp = $temp->next;
+                }
+            }
+        }
+    }
+
+    //Reverse the list
+    public function reverseList(){
+        if($this->head != null){
+            $prevNode = $this->head;
+            $tempNode = $this->head;
+            $curNode = $this->head->next;
+
+            $prevNode->next = $prevNode;
+            $prevNode->prev = $prevNode;
+            while($curNode != $this->head){
+                $tempNode = $curNode->next;
+                $curNode->next = $prevNode;
+                $prevNode->prev = $curNode;
+                $this->head->next = $curNode;
+                $curNode->prev = $this->head;
+                $prevNode = $curNode;
+                $curNode = $tempNode;
+            }
+            $this->head = $prevNode;
+        }
+    }
+
 
 
 
@@ -550,7 +606,9 @@ $cdll->PrintList();
 //$cdll->deleteOddNodes();
 //$cdll->SearchElement(84);
 //$cdll->pop_first(84);
-$cdll->pop_last(84);
+//$cdll->pop_last(84);
+//$cdll->pop_all(84);
+$cdll->reverseList();
 echo "==================================";
 $cdll->PrintList();
 //$cdll->SearchElement(84);
