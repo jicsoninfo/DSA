@@ -473,7 +473,34 @@ class cdll{
         }
     }
 
-
+    // swap node values in CDLL
+    public function swapNodeValues($node1, $node2){
+        $temp = new CDLLNode();
+        $temp = $this->head;
+        $N = 0;
+        if($temp != null){
+            $N++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $N++;
+            $temp = $temp->next;
+        }
+        if($node1 < 1 || $node1>$N || $node2<1 || $node2 >$N){
+            return;
+        }
+        $pos1 = $this->head;
+        $pos2 = $this->head;
+        for($i = 1; $i < $node1; $i++){
+            $pos1 = $pos1->next;
+        }
+        for($i = 1; $i < $node2; $i++){
+            $pos2 = $pos2->next;
+        }
+        $val = $pos1->data;
+        $pos1->data = $pos2->data;
+        $pos2->data = $val;
+    }
 
 
 
@@ -608,7 +635,8 @@ $cdll->PrintList();
 //$cdll->pop_first(84);
 //$cdll->pop_last(84);
 //$cdll->pop_all(84);
-$cdll->reverseList();
+//$cdll->reverseList();
+$cdll->swapNodeValues(2, 10);
 echo "==================================";
 $cdll->PrintList();
 //$cdll->SearchElement(84);
