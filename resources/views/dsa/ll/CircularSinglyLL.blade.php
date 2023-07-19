@@ -32,6 +32,25 @@ class csll{
         }
     }
 
+    public function push_front($newElement){
+        $newNode = new CSNode();
+        $newNode->data = $newElement;
+        $newNode->next = null;
+        if($this->head == null){
+            $this->head = $newNode;
+            $newNode->next = $this->head;
+        }else{
+            $temp = new CSNode();
+            $temp = $this->head;
+            while($temp->next !== $this->head){
+                $temp = $temp->next;
+            }
+            $temp->next = $newNode;
+            $newNode->next = $this->head;
+            $this->head = $newNode;
+        }
+    }
+
 }
 
 $mycsll = new csll();
@@ -79,6 +98,8 @@ foreach($data as $key=>$value){
     //print_r($ll2->next);
 }
 
+
+$mycsll->push_front(89);
 $mycsll->PrintList();
 // echo "<pre>";
 // print_r($mycsll);
