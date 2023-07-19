@@ -1458,3 +1458,53 @@ public function push_back($newElement) {
     $pos2->data = $val;
   }   
 ?>
+
+
+<?php
+//
+
+//Add first node.
+$first = new Node();
+$first->data = 10;
+//linking with head node
+$MyList->head = $first;
+//linking next of the node with head
+$first->next = $MyList->head;
+
+//Add second node.
+$second = new Node();
+$second->data = 20;
+//linking with first node
+$first->next = $second;
+//linking next of the node with head
+$second->next = $MyList->head;
+
+//Add third node.
+$third = new Node();
+$third->data = 30;
+//linking with second node
+$second->next = $third;
+//linking next of the node with head
+$third->next = $MyList->head;  
+
+
+ //Add new element at the start of the list
+ public function push_front($newElement) {
+  $newNode = new Node();
+  $newNode->data = $newElement;
+  $newNode->next = null; 
+  if($this->head == null) {
+    $this->head = $newNode;
+    $newNode->next = $this->head;
+  } else {
+    $temp = new Node();
+    $temp = $this->head;
+    while($temp->next !== $this->head) {
+      $temp = $temp->next;
+    }
+    $temp->next = $newNode;
+    $newNode->next = $this->head;
+    $this->head = $newNode;
+  }    
+}
+?>
