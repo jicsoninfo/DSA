@@ -32,6 +32,7 @@ class csll{
         }
     }
 
+    //add new element at the start of the CSLL list
     public function push_front($newElement){
         $newNode = new CSNode();
         $newNode->data = $newElement;
@@ -50,6 +51,150 @@ class csll{
             $this->head = $newNode;
         }
     }
+
+    //add new element at the end of the CSLL list
+    public function push_back($newElement){
+        $newNode = new CSNode();
+        $newNode->data = $newElement;
+        $newNode->next = null;
+        if($this->head == null){
+            $this->head = $newNode;
+            $newNode->next = $this->head;
+        }else{
+            $temp = new CSNode();
+            $temp = $this->head;
+            while($temp->next !== $this->head){
+                $temp = $temp->next;
+            }
+            $temp->next = $newNode;
+            $newNode->next = $this->head;
+        }
+    }
+
+
+    //Insert a new element at the given position
+    public function push_at($newElement, $position){
+        $newNode = new CSNode();
+        $newNode->data = $newElement;
+        $newNode->next = null;
+        $temp = $this->head;
+        $NoOfElements = 0;
+        if($temp != null){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+        while($temp->next !== $this->head){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+
+        if($position < 1 || $position > $NoOfElements){
+            echo "\n Invalid position";
+        }else if($position == 1){
+            if($this->head == null){
+                $this->head = $newNode;
+                //$this->head->next = $this->head;
+                $newNode->next = $this->head;
+            }else{
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                //$temp->next = $this->head;
+                $newNode->next = $this->head;
+                $this->head = $newNode;
+                $temp->next = $this->head;                
+            }
+        }else{
+            $temp = $this->head;
+            for($i = 1; $i < $position-1; $i++){
+                $temp = $temp->next;
+            }
+            $newNode->next = $temp->next;
+            $temp->next = $newNode; 
+        }
+
+    }
+
+    //delete first node of the CSLL list
+    public function pop_front(){
+        if($this->head != null){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                //$temp = new CSNode();
+                $temp = $this->head;
+                //$firstNode = $this->head;
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $temp->next = $this->head;
+                //$firstNode = null;
+            }
+        }else{
+            "\n list is empty";
+        }
+    }
+
+    //delete last node of the CSLL list
+    public function pop_back(){
+        if($this->head != null){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                $temp = new CSNode();
+                $temp = $this->head;
+                while($temp->next->next != $this->head){
+                    $temp = $temp->next;
+                    //$lastNode = $temp->next;
+                }
+                $temp->next = $this->head;
+                //$lastNode = null; 
+            }
+        }else{
+            "\n list is empty";
+        }
+    }
+
+    //delete an element at the given position in csll
+    public function pop_at($position){
+        //$nodeToDelete = $this->head;
+        $temp = $this->head;
+        $NoOfElements = 0;
+        if($temp != null){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $NoOfElements++;
+            $temp = $temp->next;
+        }
+        if($position < 1 || $position > $NoOfElements){
+            echo "\Invalid Position";
+        }else if($position == 1){
+            if($this->head->next = $this->head){
+                $this->head = null;
+            }else{
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $temp->next = $this->head;
+                //$nodeToDelete = null;
+            }
+        }else{
+            $temp = $this->head;
+            for($i=1; $i<$position-1; $i++){
+                $temp = $temp->next;
+            }
+            //$nodeToDelete = $temp->next;
+            $temp->next = $temp->next->next;
+        }
+    }
+
+
+
+
 
 }
 
@@ -100,6 +245,11 @@ foreach($data as $key=>$value){
 
 
 $mycsll->push_front(89);
+$mycsll->push_back(93);
+$mycsll->push_at(95, 8);
+$mycsll->pop_front();
+$mycsll->pop_back();
+$mycsll->pop_at(6);
 $mycsll->PrintList();
 // echo "<pre>";
 // print_r($mycsll);
