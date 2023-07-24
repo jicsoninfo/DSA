@@ -192,6 +192,65 @@ class csll{
         }
     }
 
+    //Delete all nodes of the csll
+    public function deleteAllNodes(){
+        if($this->head != null){
+            $temp = new CSNode();
+            $current = new CSNode();
+            //$temp = $this->head;
+            $current = $this->head->next;
+            while($current != $this->head){
+                $temp = $current->next;
+                $current = null;
+                $current =$temp;
+            }
+            $this->head = null;
+        }else{
+            echo "\n List is allready empty";
+        }
+    }
+
+    //Count nodes in the csll list
+    public function countNodes(){
+        $temp = new CSNode();
+        $temp = $this->head;
+        $i = 0;
+        if($temp != null){
+            $i++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $i++;
+            $temp = $temp->next;
+        }
+        //return $i;
+        echo "Total node in the list = ".$i;
+    }
+
+    //Delete even nodes of the list in csll
+    public function deleteEvenNodes(){
+        if($this->head != null && $this->head->next != $this->head){
+            $oddNode = $this->head;
+            $evenNode = $this->head->next;
+            $temp = new CSNode();
+            while(true){
+                $temp = $oddNode;
+                $oddNode->next = $evenNode->next;
+                $evenNode = null;
+                $oddNode = $oddNode->next;
+                $evenNode = $oddNode->next;
+                if($oddNode == $this->head || $evenNode == $this->head){
+                    break;
+                }
+                if($oddNode == $this->head){
+                    $temp->next = $this->head;
+                }else{
+                    $oddNode->next = $this->head;
+                }
+            }
+        }
+    }
+
 
 
 
@@ -219,7 +278,9 @@ $mycsll = new csll();
 // $csll1->next = $csll2;
 
 
-$data = ['91', '81', '72', '63', '54', '45', '36'];
+ $data = ['91', '81', '72', '63', '54', '45', '36'];
+// $data = ['91', '81'];
+// $data = ['91'];
 $ll1 = "";
 $ll2 = "";
 foreach($data as $key=>$value){
@@ -227,8 +288,8 @@ foreach($data as $key=>$value){
     if($key == 0){
     $ll1 = new CSNode();
     $ll1->data = $value;
-    $ll1->next =  $mycsll->head;
     $mycsll->head = $ll1;
+    $ll1->next =  $mycsll->head;
     $ll2 = $ll1;
     }
     else{
@@ -250,7 +311,14 @@ $mycsll->push_at(95, 8);
 $mycsll->pop_front();
 $mycsll->pop_back();
 $mycsll->pop_at(6);
+// $mycsll->deleteAllNodes();
+//$mycsll->deleteEvenNodes();
 $mycsll->PrintList();
+$mycsll->deleteEvenNodes();
+echo "</ br>======delete even Node======</br >";
+$mycsll->PrintList();
+echo "</ br>======Total Node======</br >";
+$mycsll->countNodes();
 // echo "<pre>";
 // print_r($mycsll);
 

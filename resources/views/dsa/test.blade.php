@@ -1645,4 +1645,65 @@ public function push_at($newElement, $position) {
       $nodeToDelete = null;  
     }
   } 
+
+
+
+
+  //delete all nodes of the list
+  public function deleteAllNodes() {
+    if($this->head != null) {
+      $temp = new Node();
+      $current = new Node();
+      $current = $this->head->next;
+      while($current != $this->head) {
+        $temp = $current->next;
+        $current = null;
+        $current = $temp;
+      }
+      $this->head = null;
+    }
+    echo "All nodes are deleted successfully.\n";  
+  }
+
+
+  //count nodes in the list
+  public function countNodes() {
+    $temp = new Node();
+    $temp = $this->head;
+    $i = 0;
+    if ($temp != null) {
+      $i++;
+      $temp = $temp->next;
+    }
+    while($temp != $this->head) {
+      $i++;
+      $temp = $temp->next;
+    }  
+    return $i;  
+  }  
+
+
+  //delete even nodes of the list
+  public function deleteEvenNodes() {
+    if($this->head != null && $this->head->next != $this->head) {
+      $oddNode = $this->head;
+      $evenNode = $this->head->next; 
+      $temp = new Node();
+
+      while(true) {
+        $temp = $oddNode;
+        $oddNode->next = $evenNode->next;
+        $evenNode = null;
+        $oddNode = $oddNode->next;
+        $evenNode = $oddNode->next;
+        if($oddNode == $this->head || $evenNode == $this->head)
+          break;
+      }
+      if($oddNode == $this->head)
+        $temp->next = $this->head;
+      else
+        $oddNode->next = $this->head;
+    }
+  } 
+
 ?>
