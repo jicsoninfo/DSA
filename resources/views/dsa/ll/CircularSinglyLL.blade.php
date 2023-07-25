@@ -251,6 +251,138 @@ class csll{
         }
     }
 
+    //Delete odd nodes of the list in csll
+    public function deleteOddNodes(){
+        if($this->head != null && $this->head->next == $this->head){
+            $this->head = null;
+        }
+        else if($this->head != null){
+            $temp = $this->head;
+            while($temp->next != $this->head){
+                $temp = $temp->next;
+            }
+            $temp->next = $this->head->next;
+            $this->head = null;
+            $this->head = $temp->next;
+            if($this->head != null && $this->head->next != $this->head){
+                $evenNode = $this->head;
+                $oddNode = $this->head->next;
+                while(true){
+                    $temp = $evenNode;
+                    $evenNode->next = $oddNode->next;
+                    $oddNode = null;
+                    $evenNode = $evenNode->next;
+                    $oddNode = $evenNode->next;
+                    if($evenNode == $this->head || $oddNode == $this->head){
+                        break;
+                    }
+                }
+                if($evenNode == $this->head){
+                    $temp->next = $this->head;
+                }else{
+                    $evenNode->next = $this->head;
+                }
+            }
+        }
+        
+    }
+
+    //Search an element in the list csll
+    public function SearchElement($searchValue){
+        $temp = new CSNode();
+        $temp = $this->head;
+        $found = 0;
+        $i = 0;
+        if($temp != null){
+            while(true){
+                $i++;
+                if($temp->data == $searchValue){
+                    $found++;
+                    break;
+                }
+                $temp = $temp->next;
+                if($temp == $this->head){
+                    break;
+                }
+            }
+            if($found == 1){
+                echo $searchValue. " is found at index = ".$i.".\n";
+            }else{
+                echo $searchValue. " is not found in list.\n";
+            }
+        }else{
+            echo "The list is empty.\n";
+        }
+    }
+
+
+    //Delete first node by key
+    public function pop_first($key){
+        if($this->head != null){
+            $temp = $this->head;
+            //$nodeToDelete = $this->head;
+            if($temp->data == $key){
+                if($temp->next == $this->head){
+                    $this->head = null;
+                }else{
+                    while($temp->next != $this->head){
+                        $temp = $temp->next;
+                    }
+                    $this->head = $this->head->next;
+                    $temp->next = $this->head;
+                    //$nodeToDelete = null;
+                }
+            }else{
+                while($temp->next != $this->head){
+                    if($temp->next->data == $key){
+                        //$nodeToDelete = $temp->next;
+                        $temp->next = $temp->next->next;
+                        //$nodeToDelete = null;
+                        break;
+                    }
+                    $temp = $temp->next;
+                }
+            }
+        }else{
+            echo "The list is empty.\n";
+        }
+    }
+
+    //Delete last node by key
+    public function pop_last($key){
+        if($this->head != null){
+            $temp = new CSNode();
+            $previousToLast = null;
+            $lastNode = null;
+            if($this->head->data == $key){
+                $lastNode = $this->head;
+            }
+            $temp = $this->head;
+            while($temp->next != $this->head){
+                if($temp->next->data == $key){
+                    $previousToLast = $temp;
+                    $lastNode = $temp->next;
+                }
+                $temp = $temp->next;
+            }
+            if($lastNode != null){
+                if($lastNode == $this->head){
+                    if($this->head->next == $this->head){
+                        $this->head = null;
+                    }else{
+                        $this->head = $this->head->next;
+                        $lastNode = null;
+                    }
+                }else{
+                    $previousToLast->next = $lastNode->next;
+                    $lastNode = null;
+                }
+            }
+        }else{
+            echo "The list is empty.\n";
+        }
+    }
+
 
 
 
@@ -278,9 +410,9 @@ $mycsll = new csll();
 // $csll1->next = $csll2;
 
 
- $data = ['91', '81', '72', '63', '54', '45', '36'];
-// $data = ['91', '81'];
-// $data = ['91'];
+ $data = ['91', '81', '72', '63', '54', '45', '36', '63'];
+//$data = ['91', '81'];
+//$data = ['91'];
 $ll1 = "";
 $ll2 = "";
 foreach($data as $key=>$value){
@@ -305,20 +437,33 @@ foreach($data as $key=>$value){
 }
 
 
-$mycsll->push_front(89);
-$mycsll->push_back(93);
-$mycsll->push_at(95, 8);
-$mycsll->pop_front();
-$mycsll->pop_back();
-$mycsll->pop_at(6);
-// $mycsll->deleteAllNodes();
+// $mycsll->push_front(89);
+// $mycsll->push_back(93);
+// $mycsll->push_at(95, 8);
+// $mycsll->pop_front();
+// $mycsll->pop_back();
+// $mycsll->pop_at(6);
+// // $mycsll->deleteAllNodes();
+// //$mycsll->deleteEvenNodes();
+echo "<br />=============Original list============= <br />";
+$mycsll->PrintList();
 //$mycsll->deleteEvenNodes();
+//echo "</ br>======delete even Node======</br >";
+
+// $mycsll->deleteOddNodes();
+// echo "</ br>======delete odd Node======</br >";
+
+//$mycsll->PrintList();
+
+//$mycsll->SearchElement(63);
+
+// $mycsll->pop_first(63);
+// echo "</ br>====== After pop first ======</br >";
+$mycsll->pop_last(63);
+echo "</ br>====== After pop Last ======</br >";
 $mycsll->PrintList();
-$mycsll->deleteEvenNodes();
-echo "</ br>======delete even Node======</br >";
-$mycsll->PrintList();
-echo "</ br>======Total Node======</br >";
-$mycsll->countNodes();
+//echo "</ br>======Total Node======</br >";
+//$mycsll->countNodes();
 // echo "<pre>";
 // print_r($mycsll);
 
