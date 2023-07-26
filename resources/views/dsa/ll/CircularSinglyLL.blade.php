@@ -383,6 +383,88 @@ class csll{
         }
     }
 
+    //Delete all nodes by key
+    public function pop_all($key){
+        $nodeToDelete = new CSNode();
+        $temp = new CSNode();
+        while($this->head != null && $this->head->data == $key ){
+            if($this->head->next == $this->head){
+                $this->head = null;
+            }else{
+                $nodeToDelete = $this->head;
+                $temp = $this->head;
+                while($temp->next != $this->head){
+                    $temp = $temp->next;
+                }
+                $this->head = $this->head->next;
+                $temp->next = $this->head;
+                $nodeToDelete = null;
+            }
+        }
+            $temp = $this->head;
+            if($temp != null){
+                while($temp->next != $this->head){
+                    if($temp->next->data == $key){
+                        $nodeToDelete = $temp->next;
+                        $temp->next = $temp->next->next;
+                        $nodeToDelete = null;
+                    }else{
+                        $temp = $temp->next;
+                    }
+                }
+            }
+    }
+
+    //Reverse the list CSLL
+    public function reverseList(){
+        if($this->head != null){
+            $prevNode = $this->head;
+            $tempNode = $this->head;
+            $curNode = $this->head->next;
+            $prevNode->next = $prevNode;
+            while($curNode != $this->head){
+                $tempNode = $curNode->next;
+                $curNode->next = $prevNode;
+                $this->head->next = $curNode;
+                $prevNode = $curNode;
+                $curNode = $tempNode;
+            }
+            $this->head = $prevNode;
+        }else{
+            echo "The list is empty.\n";
+        }
+    }
+
+    //swap node values
+    public function swapNodeValues($node1, $node2){
+        $temp = new CSNode();
+        $temp = $this->head;
+        $N = 0;
+        if($temp != null){
+            $N++;
+            $temp = $temp->next;
+        }
+        while($temp != $this->head){
+            $N++;
+            $temp = $temp->next;
+        }
+        if($node1 < 1 || $node1 > $N || $node2 < 1 || $node2 > $N){
+            return;
+        }
+        $pos1 = $this->head;
+        $pos2 = $this->head;
+
+        for($i =1; $i < $node1; $i++){
+            $pos1 = $pos1->next;
+        }
+        for($i =1; $i < $node2; $i++){
+            $pos2 = $pos2->next;
+        }
+        $val = $pos1->data;
+        $pos1->data = $pos2->data;
+        $pos2->data = $val;
+    }
+
 
 
 
@@ -459,9 +541,22 @@ $mycsll->PrintList();
 
 // $mycsll->pop_first(63);
 // echo "</ br>====== After pop first ======</br >";
-$mycsll->pop_last(63);
-echo "</ br>====== After pop Last ======</br >";
+// $mycsll->pop_last(63);
+// echo "</ br>====== After pop Last ======</br >";
+//$mycsll->PrintList();
+
+// $mycsll->pop_all(63);
+// echo "</ br>====== After pop all by key ======</br >";
+// $mycsll->PrintList();
+
+$mycsll->reverseList();
+echo "</ br>====== reverse the list ======</br >";
 $mycsll->PrintList();
+
+$mycsll->swapNodeValues(3, 7);
+echo "</ br>====== after swap the node value in the list ======</br >";
+$mycsll->PrintList();
+
 //echo "</ br>======Total Node======</br >";
 //$mycsll->countNodes();
 // echo "<pre>";
