@@ -104,6 +104,58 @@ echo "Doubly LL";
             
         }
 
+        //Delete first node of the list in DLL
+        public function pop_front(){
+            if($this->head != null){
+                $temp = $this->head;
+                $this->head = $this->head->next;
+                $temp = null;
+                if($this->head != null){
+                    $this->head->prev = null;
+                }
+                //sechond method
+                // if($this->head->next == null){
+                //     $this->head = null;
+                // }else{
+                //     $temp = $this->head;
+                //     $this->head = $this->head->next;
+                //     $this->head->prev = null;
+                //     $temp = null;
+                // }
+            }else{
+                echo "\n The list is empty";
+            }
+        }
+
+        //Delete last node of the list in DLL
+        public function pop_back(){
+            if($this->head != null){
+                if($this->head->next == null){
+                    $this->head = null;
+                }else{
+                    $temp = new DNode();
+                    $temp = $this->head;
+                    while($temp->next->next != null){
+                        $temp = $temp->next;
+                        //$lastNode = $temp->next;
+                    }
+                    $temp->next = null;
+                    //$lastNode = null;
+                }
+            }else{
+                echo "\n The list is empty";
+            }
+        }
+
+        //Delete an element at the given position
+        // public function pop_at($position){
+        //     if($position < 1){
+        //         echo "\nposition should be >1 .";
+        //     }else if ($position ==1 && $this->head != null){
+
+        //     }
+        // }
+
 
 
 
@@ -163,9 +215,11 @@ foreach($data as $key=>$value){
     // echo "<pre>";
     // print_r($dll);
 
-    // $dll->push_front(101);
-    // $dll->push_back(103);
-    $dll->pust_at(105,20);
+    $dll->push_front(101);
+    $dll->push_back(103);
+    $dll->pust_at(105,8);
+    $dll->pop_front();
+    $dll->pop_back();
     $dll->PrintList();
     
     
