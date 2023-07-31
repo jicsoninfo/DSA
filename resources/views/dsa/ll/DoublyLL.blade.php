@@ -147,14 +147,63 @@ echo "Doubly LL";
             }
         }
 
-        //Delete an element at the given position
-        // public function pop_at($position){
-        //     if($position < 1){
-        //         echo "\nposition should be >1 .";
-        //     }else if ($position ==1 && $this->head != null){
+        // Delete an element at the given position
+        public function pop_at($position){
+            if($position < 1){
+                echo "\nposition should be >1 .";
+            }else if ($position ==1 && $this->head != null){
+                $nodeToDelete = $this->head;
+                $this->head = $this->head->next;
+                $nodeToDelete = null;
+                if($this->head != null){
+                    $this->head->prev = null;
+                }
+            }else{
+                $temp = new DNode();
+                $temp = $this->head;
+                for($i=1; $i < $position -1; $i++){
+                    if($temp != null){
+                        $temp = $temp->next;
+                    }
+                }
+                if($temp != null && $temp->next != null){
+                    $nodeToDelete = $temp->next;
+                    $temp->next = $temp->next->next;
+                    //$nodeToDelete = null;
+                    if($temp->next->next != null){
+                        $temp->next->next->prev = $temp->next;
+                        $nodeToDelete = null;
+                    }
+                }else{
+                    echo "\nThe node already null.";
+                }
 
-        //     }
-        // }
+            }
+        }
+
+        //delete all nodes of the list 
+        public function deleteAllNodes(){
+           $temp = new DNode();
+            while($this->head != null){
+                $temp = $this->head;
+                $this->head = $this->head->next;
+                $temp = null;
+           }
+           echo "<br>All nodes are deleted successfully. <br>\n";
+        }
+
+        //count nodes in the list
+        public function countNodes(){
+            $temp = new DNode();
+            $temp = $this->head;
+            $i = 0;
+            while($temp != null){
+                $i++;
+                $temp = $temp->next;
+            }
+            //return $i;
+            echo "Total node in the list = ".$i;
+        }
 
 
 
@@ -220,7 +269,12 @@ foreach($data as $key=>$value){
     $dll->pust_at(105,8);
     $dll->pop_front();
     $dll->pop_back();
+    $dll->pop_at(8);
+    //$dll->deleteAllNodes();
+    //$dll->countNodes();
     $dll->PrintList();
     
+    echo "</ br>======Total Node======</br >";
+    $dll->countNodes();
     
 ?>
