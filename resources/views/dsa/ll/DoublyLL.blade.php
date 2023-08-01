@@ -206,6 +206,49 @@ echo "Doubly LL";
         }
 
 
+        //delete even nodes of the list
+        public function deleteEvenNodes(){
+            if($this->head != null){
+                $oddNode = $this->head;
+                $evenNode = $this->head->next;
+                while($oddNode != null && $evenNode != null){
+                    $oddNode->next = $evenNode->next;
+                    $evenNode = null;
+                    $temp = $oddNode;
+                    $oddNode = $oddNode->next;
+                    if($oddNode != null){
+                        $oddNode->prev = $temp;
+                        $evenNode = $oddNode->next;
+                    }
+                }
+            }
+        }
+
+        //delete odd nodes of the list
+        public function deleteOddNodes(){
+            if($this->head != null){
+                $temp = $this->head;
+                $this->head = $this->head->next;
+                $temp= null;
+                if($this->head != null){
+                    $this->head->prev = null;
+                    $evenNode = $this->head;
+                    $oddNode = $this->head->next;
+                    while($evenNode != null && $oddNode != null){
+                        $evenNode->next = $oddNode->next;
+                        $oddNode = null;
+                        $temp = $evenNode;
+                        $evenNode = $evenNode->next;
+                        if($evenNode != null){
+                            $evenNode->prev = $temp;
+                            $oddNode = $evenNode->next;
+                        } 
+                    }
+                }
+            }
+        }
+
+
 
 
 
@@ -272,6 +315,17 @@ foreach($data as $key=>$value){
     $dll->pop_at(8);
     //$dll->deleteAllNodes();
     //$dll->countNodes();
+    //$dll->PrintList();
+
+    echo "<br />=============Original list============= <br />";
+    $dll->PrintList();
+
+    // $dll->deleteEvenNodes();
+    // echo "</ br>======delete even Node======</br >";
+    // $dll->PrintList();
+
+    $dll->deleteOddNodes();
+    echo "</ br>======delete odd Node======</br >";
     $dll->PrintList();
     
     echo "</ br>======Total Node======</br >";
