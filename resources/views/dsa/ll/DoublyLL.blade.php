@@ -248,7 +248,95 @@ echo "Doubly LL";
             }
         }
 
+        //Search an element in the list
+        public function SearchElement($searchValue){
+            $temp = new DNode();
+            $temp = $this->head;
+            $found = 0;
+            $i = 0;
+            if($temp != null){
+                while($temp != null){
+                    $i++;
+                    if($temp->data == $searchValue){
+                        $found++;
+                        break;
+                    }
+                    $temp = $temp->next;
+                }
+                if($found == 1){
+                    echo $searchValue." is found at index = " .$i.".\n<br>";
+                }else{
+                    echo $searchValue. " is not fount in the list. \n <br>";
+                }
+            }else{
+                echo "The list is empty.\n<br>";
+            }
+        }
 
+        //Delete first node by key
+        public function pop_first($key){
+            $temp = $this->head;
+            if($temp != null){
+                if($temp->data == $key){
+                    $nodeToDelete = $this->head;
+                    $this->head = $this->head->next;
+                    $nodeToDelete = null;
+                    if($this->head != null){
+                        $this->head->prev = null;
+                    }
+                }else{
+                    while($temp->next != null){
+                        if($temp->next->data == $key){
+                            $nodeToDelete = $temp->next;
+                            $temp->next = $temp->next->next;
+                            if($temp->next != null){
+                                $temp->next->prev = $temp;
+                                $nodeToDelete = null;
+                                break;
+                            }
+                        }
+                        $temp = $temp->next;
+                    }
+                }
+            }else{
+                echo "<br> The list is empty <br>";
+            }
+        }
+
+        //Delete last node by key
+        public function pop_last($key){
+            if($this->head != null){
+                $temp = new DNode();
+                $previousToLast = null;
+                $lastNode = null;
+
+                if($this->head->data == $key){
+                    $lastNode = $this->head;
+                }
+                $temp = $this->head;
+                while($temp->next != null){
+                    if($temp->next->data == $key){
+                        $previousToLast = $temp;
+                        $lastNode = $temp->next;
+                    }
+                    $temp = $temp->next;
+                }
+
+                if($lastNode != null){
+                    if($lastNode == $this->head){
+                        $this->head = $this->head->next;
+                        $lastNode = null;
+                    }else{
+                        $previousToLast->next = $lastNode->next;
+                        if($previousToLast->next != null){
+                            $previousToLast->next->prev = $previousToLast;
+                        }
+                        $lastNode = null;
+                    }
+                }
+
+            }
+        }
 
 
 
@@ -281,7 +369,7 @@ echo "Doubly LL";
 
 
 
-$data = ['91', '81', '72', '63', '54', '45', '36', '63'];
+$data = ['91', '81', '72', '63', '54', '45', '36', '63', '81', '81', '81'];
 $ll1 = "";
 $ll2 = "";
 foreach($data as $key=>$value){
@@ -324,8 +412,18 @@ foreach($data as $key=>$value){
     // echo "</ br>======delete even Node======</br >";
     // $dll->PrintList();
 
-    $dll->deleteOddNodes();
-    echo "</ br>======delete odd Node======</br >";
+    // $dll->deleteOddNodes();
+    // echo "</ br>======delete odd Node======</br >";
+    // $dll->PrintList();
+
+    $dll->SearchElement(75);
+
+    // $dll->pop_first(81);
+    // echo "<br />=============After pop first============= <br />";
+    // $dll->PrintList();
+
+    $dll->pop_last(81);
+    echo "<br />=============After pop last============= <br />";
     $dll->PrintList();
     
     echo "</ br>======Total Node======</br >";
