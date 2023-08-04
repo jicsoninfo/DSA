@@ -338,6 +338,80 @@ echo "Doubly LL";
             }
         }
 
+        //Delete all nodes by key
+        public function pop_all($key){
+            $nodeToDelete = new DNode();
+            while($this->head != null && $this->head->data == $key){
+                $nodeToDelete = $this->head;
+                $this->head = $this->head->next;
+                $nodeToDelete = null;
+                if($this->head != null){
+                    $this->head->prev = null;
+                }
+            }
+
+            $temp = $this->head;
+            if($temp != null){
+                while($temp->next != null){
+                    if($temp->next->data == $key){
+                        $nodeToDelete = $temp->next;
+                        $temp->next = $temp->next->next;
+                        if($temp->next != null){
+                            $temp->next->prev = $temp;
+                            $nodeToDelete = null;
+                        }
+                    }else{
+                        $temp = $temp->next;
+                    }
+                }
+            }
+        }
+
+        //Reverse the list
+        public function reverseList(){
+            if($this->head != null){
+                $prevNode = $this->head;
+                $tempNode = $this->head;
+                $curNode = $this->head->next;
+                $prevNode->next = null;
+                $prevNode->prev = null;
+                while($curNode != null){
+                    $tempNode = $curNode->next;;
+                    $curNode->next = $prevNode;
+                    $prevNode->prev = $curNode;
+                    $prevNode = $curNode;
+                    $curNode = $tempNode;
+                }
+                $this->head = $prevNode;
+            }
+        }
+
+        //swap node values
+        public function swapNodeValues($node1, $node2){
+            $temp = new DNode();
+            $temp = $this->head;
+            $N = 0;
+            while($temp != null){
+                $N++;
+                $temp =  $temp->next;
+            }
+            if($node1 < 1 || $node1 > $N || $node2 < 1 || $node2 > $N){
+                return;
+            }
+            $pos1 = $this->head;
+            $pos2 = $this->head;
+            for($i = 1; $i < $node1; $i++){
+                $pos1 = $pos1->next;
+            }
+            for($i =1; $i < $node2; $i++){
+                $pos2 = $pos2->next;
+            }
+            $val = $pos1->data;
+            $pos1->data = $pos2->data;
+            $pos2->data = $val;
+        }
+            
+
 
 
     }
@@ -422,8 +496,20 @@ foreach($data as $key=>$value){
     // echo "<br />=============After pop first============= <br />";
     // $dll->PrintList();
 
-    $dll->pop_last(81);
-    echo "<br />=============After pop last============= <br />";
+    // $dll->pop_last(81);
+    // echo "<br />=============After pop last============= <br />";
+    // $dll->PrintList();
+
+    // $dll->pop_all(81);
+    // echo "<br />=============After pop all============= <br />";
+    // $dll->PrintList();
+
+    $dll->reverseList();
+    echo "<br />=============After reverse the list============= <br />";
+    $dll->PrintList();
+
+    $dll->swapNodeValues(5, 9);
+    echo "<br />=============After swap the value in list============= <br />";
     $dll->PrintList();
     
     echo "</ br>======Total Node======</br >";
