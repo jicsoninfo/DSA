@@ -181,7 +181,6 @@ class cdll{
         //$nodeToDelete = $this->head;
         $temp = $this->head;
         $NoOfElements = 0;
-
         if($temp != null){
             $NoOfElements++;
             $temp = $temp->next;
@@ -213,9 +212,7 @@ class cdll{
             $temp->next = $temp->next->next;
             $temp->next->prev = $temp;
             //$nodeToDelete = null;
-
         }
-
     }
 
 
@@ -326,7 +323,6 @@ class cdll{
         $temp = $this->head;
         $found = 0;
         $i = 0;
-
         if($temp != null){
             while(true){
                 $i++;

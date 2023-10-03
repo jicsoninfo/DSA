@@ -55,6 +55,10 @@ Route::get('/logics/test', function () {
     return view('logical.test');
 });
 
+Route::get('/logics/prac', function () {
+    return view('logical.prac');
+});
+
 
 
 // git init
