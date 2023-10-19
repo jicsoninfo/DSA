@@ -68,9 +68,14 @@ Route::get('/logics/prac', function () {
 // git push -u -f origin master
 
 
+// git remote -v
+//git checkout -B master
+//git config --global user.name "Inforavibhushan"
+//git pull orign main
 
 
-// git status
+
+//git status
 //git add .
 //git commit -m "message"
 //git branch
@@ -79,3 +84,15 @@ Route::get('/logics/prac', function () {
 //https://www.photowall.se/
 //https://creator.nightcafe.studio/
 //https://www.alphacodingskills.com/php/php-data-structures.php
+
+
+
+/*
+
+Hello,
+I have to go home town, so I am not able to attend the office between 27-november-2023 to 01-december-2023.
+please grant me leave for the above period.
+
+Regards
+Ravi
+*/
