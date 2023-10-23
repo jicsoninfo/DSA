@@ -518,17 +518,19 @@ foreach($data as $key=>$value){
     $ll1 = new CDLLNode();
     $ll1->data = $value;
     $ll1->prev =  null;
-    $ll1->next =  $cdll->head;
+    $ll1->next = null;
     $cdll->head = $ll1;
+    $ll1->next =  $cdll->head;
     $cdll->head->prev = $ll1;
     $ll2 = $ll1;
     }
     else{
         $ll1 = new CDLLNode();
         $ll1->data = $value;
+        $ll1->next = null;
         $ll1->prev = $ll2;
-        $ll1->next = $cdll->head;
         $ll2->next = $ll1;
+        $ll1->next = $cdll->head;
         $cdll->head->prev = $ll2;
         $ll2= $ll1;
     }

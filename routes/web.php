@@ -85,14 +85,8 @@ Route::get('/logics/prac', function () {
 //https://creator.nightcafe.studio/
 //https://www.alphacodingskills.com/php/php-data-structures.php
 
+////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
 
+//git config --global user.name "FIRST_NAME LAST_NAME"
+//git config --global user.email "your email id"
 
-/*
-
-Hello,
-I have to go home town, so I am not able to attend the office between 27-november-2023 to 01-december-2023.
-please grant me leave for the above period.
-
-Regards
-Ravi
-*/
