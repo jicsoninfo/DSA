@@ -85,7 +85,7 @@ Route::get('/logics/prac', function () {
 //https://creator.nightcafe.studio/
 //https://www.alphacodingskills.com/php/php-data-structures.php
 
-////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
+////_rureir_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_eerrtrxfsdfsdfg
 
 //git config --global user.name "FIRST_NAME LAST_NAME"
 //git config --global user.email "your email id"
