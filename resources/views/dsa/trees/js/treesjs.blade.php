@@ -9,20 +9,30 @@ class Node{
         this.right = null;
     }
 }
-var root = null;
+class BST{
+    constructor(){
+        this.root = null;
+    }
 
-function printPostorder(node){
-    if(node == null){return};
-    printPostorder(node.left)
-    printPostorder(node.right);
-    console.warn(node.key + " ");
+    insert(valu){
+        const newNode = new Node(value)
+        if(this.root === null){
+            this.root = newNode;
+            return this;
+        }
+    }
 }
-
-root = new Node(1);
-root.left = new Node(2);
-root.right = new Node(3);
-
-printPostorder(root)
+//var root = null;
+// function printPostorder(node){
+//     if(node == null){return};
+//     printPostorder(node.left)
+//     printPostorder(node.right);
+//     console.warn(node.key + " ");
+// }
+// root = new Node(1);
+// root.left = new Node(2);
+// root.right = new Node(3);
+// printPostorder(root)
 
 
 </script>
