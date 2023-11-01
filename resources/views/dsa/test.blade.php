@@ -2509,4 +2509,120 @@ const BST = new BinarySearchTree();
 BST.insert(1);
 BST.insert(3);
 BST.insert(2);
+
+
+
+///////////////////////////////
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(value) {
+    const newNode = new Node(value);
+    if (this.root === null) {
+      this.root = newNode;
+      return this;
+    }
+    let current = this.root;
+    while (true) {
+      if (value === current.value) {
+        return undefined; // Duplicate values are not allowed
+      }
+      if (value < current.value) {
+        if (current.left === null) {
+          current.left = newNode;
+          return this;
+        }
+        current = current.left;
+      } else {
+        if (current.right === null) {
+          current.right = newNode;
+          return this;
+        }
+        current = current.right;
+      }
+    }
+  }
+
+  find(value) {
+    if (this.root === null) {
+      return undefined;
+    }
+    let current = this.root;
+    while (current) {
+      if (value === current.value) {
+        return current;
+      }
+      if (value < current.value) {
+        current = current.left;
+      } else {
+        current = current.right;
+      }
+    }
+    return undefined; // Value not found
+  }
+
+  // In-order traversal
+  inOrder() {
+    const result = [];
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      result.push(node.value);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+    return result;
+  }
+
+  // Pre-order traversal
+  preOrder() {
+    const result = [];
+    function traverse(node) {
+      result.push(node.value);
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+    }
+    traverse(this.root);
+    return result;
+  }
+
+  // Post-order traversal
+  postOrder() {
+    const result = [];
+    function traverse(node) {
+      if (node.left) traverse(node.left);
+      if (node.right) traverse(node.right);
+      result.push(node.value);
+    }
+    traverse(this.root);
+    return result;
+  }
+}
+
+// Example usage:
+const tree = new BinarySearchTree();
+tree.insert(10);
+tree.insert(5);
+tree.insert(15);
+tree.insert(3);
+tree.insert(7);
+tree.insert(12);
+tree.insert(18);
+
+console.log("In-order traversal:", tree.inOrder()); // [3, 5, 7, 10, 12, 15, 18]
+console.log("Pre-order traversal:", tree.preOrder()); // [10, 5, 3, 7, 15, 12, 18]
+console.log("Post-order traversal:", tree.postOrder()); // [3, 7, 5, 12, 18, 15, 10]
+
+console.log("Find 5:", tree.find(5)); // Node { value: 5, left: Node { ... }, right: Node { ... } }
+console.log("Find 8:", tree.find(8)); // undefined
 </script>
