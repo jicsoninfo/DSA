@@ -2417,4 +2417,96 @@ class BinarySearchTree {
     }
 }
 
+
+
+//
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.right = null;
+    this.left = null;
+    this.count = 0;
+  };
+};
+
+class BST {
+  constructor() {
+    this.root = null;
+  }
+  create(val) {
+    const newNode = new Node(val);
+    if (!this.root) {
+      this.root = newNode;
+      return this;
+    };
+    let current = this.root;
+
+    const addSide = side => {
+      if (!current[side]) {
+        current[side] = newNode;
+        return this;
+      };
+      current = current[side];
+    };
+
+    while (true) {
+      if (val === current.val) {
+        current.count++;
+        return this;
+      };
+      if (val < current.val) addSide('left');
+      else addSide('right');
+    };
+  };
+};
+
+let tree = new BST();
+tree.add(10);
+tree.add(4);
+tree.add(4);
+tree.add(12);
+tree.add(2);
+console.log(tree);
+
+
+///////////////////
+class Node{
+   constructor(data) {
+      this.data = data;
+      this.left = null;
+      this.right = null;
+   };
+};
+class BinarySearchTree{
+   constructor(){
+      this.root = null;
+   }
+   insert(data){
+      var newNode = new Node(data);
+      if(this.root === null){
+         this.root = newNode;
+      }else{
+         this.insertNode(this.root, newNode);
+      };
+   };
+   insertNode(node, newNode){
+      if(newNode.data < node.data){
+         if(node.left === null){
+            node.left = newNode;
+         }else{
+            this.insertNode(node.left, newNode);
+         };
+      } else {
+         if(node.right === null){
+            node.right = newNode;
+         }else{
+            this.insertNode(node.right,newNode);
+         };
+      };
+   };
+};
+const BST = new BinarySearchTree();
+BST.insert(1);
+BST.insert(3);
+BST.insert(2);
 </script>
