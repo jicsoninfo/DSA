@@ -3,8 +3,8 @@
 ?>
 <script>
 class Node{
-    constructor(val){
-        this.key = val;
+    constructor(value){
+        this.value = value;
         this.left = null;
         this.right = null;
     }
@@ -57,10 +57,10 @@ class BST{
 
 const BineryST = new BST();
 BineryST.insert(60);
- BineryST.insert(45);
-// BineryST.insert(65);
-// BineryST.insert(40);
-// BineryST.insert(70);
+BineryST.insert(45);
+BineryST.insert(65);
+BineryST.insert(40);
+BineryST.insert(70);
 
 console.log(BineryST)
 
