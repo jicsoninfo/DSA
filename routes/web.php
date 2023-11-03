@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+//=======================================
 Route::get('/', function () {
     return view('dsa.ll.linklist');
 });
@@ -26,15 +28,22 @@ Route::get('/dll', function () {
 Route::get('/cdll', function () {
     return view('dsa.ll.CircularDoublyLL');
 });
+//=======================================
 
+//=======================================
 Route::get('/singlylljs', function () {
     return view('dsa.ll.lljs.singlylljs');
 });
+//=======================================
 
+
+//=======================================
 Route::get('/jsq', function () {
     return view('dsa.queue.js.queuejs');
 });
+//=======================================
 
+//=======================================
 Route::get('/phpq', function () {
     return view('dsa.queue.queuephp');
 });
@@ -42,11 +51,18 @@ Route::get('/phpq', function () {
 Route::get('/phpstack', function () {
     return view('dsa.stack.stackphp');
 });
-Route::get('/jstrees', function () {
-    return view('dsa.trees.js.treesjs');
+//=========================================
+
+//=======================================
+Route::get('/jsbstree', function () {
+    return view('dsa.trees.js.bstreejs');
 });
+Route::get('/phpbstree', function () {
+    return view('dsa.trees.bstreephp');
+});
+//=======================================
 
-
+//=======================================
 Route::get('/logics', function () {
     return view('logical.logical');
 });
@@ -58,7 +74,7 @@ Route::get('/logics/test', function () {
 Route::get('/logics/prac', function () {
     return view('logical.prac');
 });
-
+//=======================================
 
 
 // git init
