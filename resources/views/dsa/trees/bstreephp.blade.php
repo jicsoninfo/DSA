@@ -54,8 +54,14 @@ class BinaryST{
 
     public function inorder(){
         $result = [];
-        function traverse(){
-            
+        $node = $this->root;
+        function traverse($node){{
+            array_push($result, $node->value);
+            if($node->left) { traverse($node->left); };
+            if($node->right){ traverse($node->right);};
+        }
+            traverse($node);
+            return $result;
         }
     }
 }
@@ -65,6 +71,8 @@ $BST->insert(10);
 $BST->insert(9);
 $BST->insert(8);
 
+//$BST->insert(8); //duplicate is not allowed
+
 $BST->insert(5);
 $BST->insert(15);
 $BST->insert(3);
@@ -72,7 +80,10 @@ $BST->insert(7);
 $BST->insert(12);
 $BST->insert(18);
 
+$inorder_data = $BST->inorder();
+
 echo "<pre>";
-print_r($BST);
+//print_r($BST);
+print_r($inorder_data);
 die();
 ?>
