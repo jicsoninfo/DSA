@@ -9,8 +9,8 @@ class Node{
     // public $left;
     // public $right;
 
-    // public function __construct(){
-    //     $this->value = null;
+    // public function __construct($data){
+    //     $this->value = $data;
     //     $this->left = null;
     //     $this->right = null;
     // }
@@ -52,18 +52,26 @@ class BinaryST{
         }
     }
 
+    
     public function inorder(){
-        $result = [];
-        $node = $this->root;
-        function traverse($node){{
-            array_push($result, $node->value);
-            if($node->left) { traverse($node->left); };
-            if($node->right){ traverse($node->right);};
+        $result = array();
+        //$node = new Node();
+        //$node = $this->root;
+        function traverse($node,&$result){
+            //print_r($node->value);
+            if($node->left) { traverse($node->left,$result); };
+                array_push($result, $node->value);
+            // echo "<pre>";
+            // echo ($node->value);
+            if($node->right){ traverse($node->right,$result);};
         }
-            traverse($node);
-            return $result;
-        }
+            traverse($this->root,$result);
+            print_r($result);
+            //return $result;
+        
     }
+
+
 }
 
 $BST = new BinaryST();
@@ -80,10 +88,11 @@ $BST->insert(7);
 $BST->insert(12);
 $BST->insert(18);
 
-$inorder_data = $BST->inorder();
+//$inorder_data = $BST->inorder();
 
 echo "<pre>";
 //print_r($BST);
-print_r($inorder_data);
+//print_r($inorder_data);
+$BST->inorder();
 die();
 ?>
