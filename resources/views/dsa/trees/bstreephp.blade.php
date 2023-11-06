@@ -66,8 +66,8 @@ class BinaryST{
             if($node->right){ traverse($node->right,$result);};
         }
             traverse($this->root,$result);
-            print_r($result);
-            //return $result;
+            //print_r($result);
+            return $result;
         
     }
 
@@ -88,11 +88,11 @@ $BST->insert(7);
 $BST->insert(12);
 $BST->insert(18);
 
-//$inorder_data = $BST->inorder();
+$inorder_data = $BST->inorder();
 
 echo "<pre>";
 //print_r($BST);
-//print_r($inorder_data);
-$BST->inorder();
+print_r($inorder_data);
+//$BST->inorder();
 die();
 ?>
