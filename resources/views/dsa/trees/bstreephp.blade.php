@@ -52,7 +52,7 @@ class BinaryST{
         }
     }
 
-    
+    //Inorder traversal in php
     public function inorder(){
         $result = array();
         //$node = new Node();
@@ -65,34 +65,78 @@ class BinaryST{
             // echo ($node->value);
             if($node->right){ traverse($node->right,$result);};
         }
+        if($this->root != null){
             traverse($this->root,$result);
             //print_r($result);
             return $result;
+        }else{
+            echo "No data found";
+        }
         
     }
+
+    //Pre-order traversal in php
+    public function preOrder(){
+        $result = array();
+        function pre_traverse($node, &$result){
+            array_push($result, $node->value);
+            // echo "<pre>";
+            // echo ($node->value);
+            if($node->left){pre_traverse($node->left,$result);}
+            if($node->right){pre_traverse($node->right,$result);}
+        }
+        if($this->root != null){
+            pre_traverse($this->root, $result);
+            print_r($result);
+            //return $result;
+        }else{
+            echo "No data found";
+        }
+    }
+
+    public function postOrder(){
+        $result = array();
+        function post_traverse($node, &$result){
+            if($node->left){post_traverse($node->left,$result);}
+            if($node->right){post_traverse($node->right,$result);}
+            array_push($result, $node->value);
+            // echo "<pre>";
+            // echo ($node->value);
+        }
+        if($this->root != null){
+            post_traverse($this->root, $result);
+            print_r($result);
+            //return $result;
+        }else{
+            echo "No data found";
+        }
+    }
+
 
 
 }
 
 $BST = new BinaryST();
 $BST->insert(10);
-$BST->insert(9);
-$BST->insert(8);
-
+// $BST->insert(9);
+// $BST->insert(8);
 //$BST->insert(8); //duplicate is not allowed
-
 $BST->insert(5);
 $BST->insert(15);
 $BST->insert(3);
 $BST->insert(7);
 $BST->insert(12);
 $BST->insert(18);
-
-$inorder_data = $BST->inorder();
-
-echo "<pre>";
-//print_r($BST);
-print_r($inorder_data);
 //$BST->inorder();
+$inorder_data = $BST->inorder();
+echo "<pre>";
+echo "===========Data==========";
+print_r($BST);
+echo "===========Inorder==========";
+print_r($inorder_data);
+echo "===========Pre-order==========";
+$BST->preOrder();
+echo "===========Post-Order==========";
+$BST->postOrder();
 die();
 ?>
