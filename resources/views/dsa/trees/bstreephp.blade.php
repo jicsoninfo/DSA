@@ -112,23 +112,68 @@ class BinaryST{
         }
     }
 
+    public function bstfind($value){
+        if($this->root === null){
+            //return false;
+            return "value not found";
+        }
+        $current = $this->root;
+        while($current){
+            if($value == $current->value){
+                return $current;
+                //echo "value found";
+            }
+            if($value < $current->value){
+                $current = $current->left;
+            }else{
+                $current = $current->right;
+            }
+        }
+        //return false;
+        return "value not found";
+        //echo "value not found";
+    }
+
 
 
 }
 
 $BST = new BinaryST();
-$BST->insert(10);
-// $BST->insert(9);
-// $BST->insert(8);
-//$BST->insert(8); //duplicate is not allowed
-$BST->insert(5);
-$BST->insert(15);
-$BST->insert(3);
-$BST->insert(7);
-$BST->insert(12);
-$BST->insert(18);
-//$BST->inorder();
-$inorder_data = $BST->inorder();
+// $BST->insert(10);
+// // $BST->insert(9);
+// // $BST->insert(8);
+// //$BST->insert(8); //duplicate is not allowed
+// $BST->insert(5);
+// $BST->insert(15);
+// $BST->insert(3);
+// $BST->insert(7);
+// $BST->insert(12);
+// $BST->insert(18);
+
+$bst_array = [10, 5, 15, 3, 7, 12, 18];
+foreach($bst_array as $key=>$data){
+    $BST->insert($data);
+    
+    // $newNode->value = $data;
+    // $newNode->left = null;
+    // $newNode->right = null;
+    //if($key === 0){
+    // if($BST->root === null){
+    //     $newNode = new node();
+    //     $newNode->value = $data;
+    //     $newNode->left = null;
+    //     $newNode->right = null;
+    //     $BST->root = $newNode;
+    //     $current = $BST->root;
+    // }else{
+
+    // }
+}
+
+//print_r($BST);
+
+// $BST->inorder();
+ $inorder_data = $BST->inorder();
 echo "<pre>";
 echo "===========Data==========";
 print_r($BST);
@@ -138,5 +183,8 @@ echo "===========Pre-order==========";
 $BST->preOrder();
 echo "===========Post-Order==========";
 $BST->postOrder();
+
+$is_valiue = $BST->bstfind(8);
+print_r($is_valiue);
 die();
 ?>
