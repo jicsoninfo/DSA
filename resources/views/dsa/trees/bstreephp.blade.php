@@ -186,5 +186,58 @@ $BST->postOrder();
 
 $is_valiue = $BST->bstfind(8);
 print_r($is_valiue);
+//die();
+?>
+
+
+<?php 
+// Php programs for binery search tree
+
+echo "Binery search tree other methods in php";
+
+class TreeNode{
+    public $data;
+    public $left;
+    public $right;
+
+    public function __construct($data)
+    {
+        $this->data = $data;
+        $this->left = null;
+        $this->right = null;
+    }
+}
+
+class BinarySearchTree{
+    public $root;
+    public function __construct()
+    {
+        $this->root = null;
+    }
+
+    // Insertion in binary search tree by using recursion
+    public function addNode($node, $data){
+        if($node != null){
+
+        }else{
+            // if($node === null){
+                // $newNode = new TreeNode($data);
+                // $newNode->data = $data;
+                // $newNode->left = null;
+                // $newNode->right = null;
+                // $this->root = $node;
+                //return $this;
+            // }
+            //return new TreeNode($data);
+        }
+    }
+}
+
+$tree = new BinarySearchTree();
+//$tree->root = $tree->addNode($tree->root, 10);
+$tree->addNode($tree->root, 10);
+
+echo "<pre>";
+print_r($tree);
 die();
 ?>
