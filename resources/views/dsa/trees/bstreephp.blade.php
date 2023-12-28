@@ -217,25 +217,34 @@ class BinarySearchTree{
 
     // Insertion in binary search tree by using recursion
     public function addNode($node, $data){
+        // print_r($node); 
+        // print_r($data);
         if($node != null){
-
+            if($node->data > $data){
+                $node->left = $this->addNode($node->left, $data);
+            }else{
+                $node->right = $this->addNode($node->right, $data);
+            }
+            return $node;
         }else{
             // if($node === null){
-                // $newNode = new TreeNode($data);
-                // $newNode->data = $data;
-                // $newNode->left = null;
-                // $newNode->right = null;
-                // $this->root = $node;
-                //return $this;
+            //     $newNode = new TreeNode($data);
+            //     $this->root = $newNode;
             // }
-            //return new TreeNode($data);
+            // return $node;
+            return new TreeNode($data);
         }
     }
 }
 
 $tree = new BinarySearchTree();
-//$tree->root = $tree->addNode($tree->root, 10);
+$tree->root = $tree->addNode($tree->root, 10);
 $tree->addNode($tree->root, 10);
+$tree->addNode($tree->root, 4);
+$tree->addNode($tree->root, 3);
+$tree->addNode($tree->root, 5);
+$tree->addNode($tree->root, 15);
+$tree->addNode($tree->root, 12);
 
 echo "<pre>";
 print_r($tree);
