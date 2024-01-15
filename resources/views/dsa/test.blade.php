@@ -2676,6 +2676,59 @@ class BinarySearchTree
 			return new TreeNode($data);
 		}
 	}
+
+  // insert a element without recursive
+	public	function addNode($data)
+	{
+		// Create a new node
+		$node = new TreeNode($data);
+		if ($this->root == NULL)
+		{
+			// When adds a first node in bst
+			$this->root = $node;
+		}
+		else
+		{
+			$find = $this->root;
+			// Add new node to proper position
+			while ($find != NULL)
+			{
+				if ($find->data >= $data)
+				{
+					if ($find->left == NULL)
+					{
+						// When left child empty
+						// So add new node here
+						$find->left = $node;
+						return;
+					}
+					else
+					{
+						// Otherwise
+						// Visit left sub-tree
+						$find = $find->left;
+					}
+				}
+				else
+				{
+					if ($find->right == NULL)
+					{
+						// When right child empty
+						// So add new node here
+						$find->right = $node;
+						return;
+					}
+					else
+					{
+						// Visit right sub-tree
+						$find = $find->right;
+					}
+				}
+			}
+		}
+	}
+
+
 	// Display preorder
 	public	function preorder($node)
 	{

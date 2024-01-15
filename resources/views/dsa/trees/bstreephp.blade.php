@@ -193,7 +193,7 @@ print_r($is_valiue);
 <?php 
 // Php programs for binery search tree
 
-echo "Binery search tree other methods in php";
+echo "<br />Binery search tree other methods in php <br />";
 
 class TreeNode{
     public $data;
@@ -217,8 +217,7 @@ class BinarySearchTree{
 
     // Insertion in binary search tree by using recursion
     public function addNode($node, $data){
-        // print_r($node); 
-        // print_r($data);
+        
         if($node != null){
             if($node->data > $data){
                 $node->left = $this->addNode($node->left, $data);
@@ -227,26 +226,118 @@ class BinarySearchTree{
             }
             return $node;
         }else{
-            // if($node === null){
-            //     $newNode = new TreeNode($data);
-            //     $this->root = $newNode;
-            // }
-            // return $node;
             return new TreeNode($data);
         }
     }
+
+    public function insertNode($data){
+        $this->root = $this->insertNodeStore($this->root, $data);
+    }
+
+    private function insertNodeStore($node, $data){
+        if($node === null){
+            return new TreeNode($data);
+        }
+
+        if($data < $node->data){
+            $node->left = $this->insertNodeStore($node->left, $data);
+        }elseif($data > $node->data){
+            $node->right = $this->insertNodeStore($node->right, $data);
+        }
+        return $node;
+    }
+
+    //display preorder
+    public function preorder($node){
+        if($node != NULL){
+            echo " ".strval($node->data); // Display node value
+            $this->preorder($node->left); // Visit to left subtree
+            $this->preorder($node->right); // Visit to right subtree
+        }
+    }
+
+    public function inorder($node){
+        if($node != NULL){
+            $this->inorder($node->left); // Visit to left subtree
+            echo " ".strval($node->data); // Display node value
+            $this->inorder($node->right); // Visit to right subtree
+        }
+    }
+
+    public function postorder($node){
+        if($node != NULL){
+            $this->postorder($node->left); // Visit to left subtree
+            $this->postorder($node->right); // Visit to right subtree
+            echo " ".strval($node->data); // Display node value
+        }
+    }
+
+    public static function main(){
+        $tree = new BinarySearchTree();
+        $tree->root = $tree->addNode($tree->root, 10);
+        //$tree->addNode($tree->root, 10);
+        $tree->addNode($tree->root, 4);
+        $tree->addNode($tree->root, 3);
+        $tree->addNode($tree->root, 5);
+        $tree->addNode($tree->root, 15);
+        $tree->addNode($tree->root, 12);
+        
+        // Display tree nodes
+        echo "\nPreorder\n";
+        $tree->preorder($tree->root);
+        echo "<br />";
+        echo "\nInorder\n";
+        $tree->inorder($tree->root);
+        echo "<br />";
+        echo "\nPostorder\n";
+        $tree->postorder($tree->root);
+        echo "<br />";
+    }
 }
 
-$tree = new BinarySearchTree();
-$tree->root = $tree->addNode($tree->root, 10);
-$tree->addNode($tree->root, 10);
-$tree->addNode($tree->root, 4);
-$tree->addNode($tree->root, 3);
-$tree->addNode($tree->root, 5);
-$tree->addNode($tree->root, 15);
-$tree->addNode($tree->root, 12);
+// $tree = new BinarySearchTree();
+// $tree->root = $tree->addNode($tree->root, 10);
+// //$tree->addNode($tree->root, 10);
+// $tree->addNode($tree->root, 4);
+// $tree->addNode($tree->root, 3);
+// $tree->addNode($tree->root, 5);
+// $tree->addNode($tree->root, 15);
+// $tree->addNode($tree->root, 12);
 
-echo "<pre>";
-print_r($tree);
-die();
+// // Display tree nodes
+// echo "Preorder\n";
+// $tree->preorder($tree->root);
+// echo "<br />";
+// echo "\nInorder\n";
+// $tree->inorder($tree->root);
+// echo "<br />";
+// echo "\nPostorder\n";
+// $tree->postorder($tree->root);
+// echo "<br />";
+// echo "<pre>";
+// print_r($tree);
+BinarySearchTree::main();
+echo "============recursive function 2nd method =================";
+$bst = new BinarySearchTree();
+$bst->insertNode(10);
+$bst->insertNode(5);
+$bst->insertNode(15);
+$bst->insertNode(3);
+$bst->insertNode(7);
+
+ // Display tree nodes
+ echo "Preorder\n";
+ $bst->preorder($bst->root);
+ echo "<br />";
+ echo "\nInorder\n";
+ $bst->inorder($bst->root);
+ echo "<br />";
+ echo "\nPostorder\n";
+ $bst->postorder($bst->root);
+ echo "<br />";
+
+
+// echo "<pre>";
+// print_r($bst);
+// die();
 ?>
