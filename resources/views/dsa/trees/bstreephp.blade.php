@@ -215,7 +215,7 @@ class BinarySearchTree{
         $this->root = null;
     }
 
-    // Insertion in binary search tree by using recursion
+    // Insertion in binary search tree by using recursion 1st method start
     public function addNode($node, $data){
         
         if($node != null){
@@ -229,7 +229,9 @@ class BinarySearchTree{
             return new TreeNode($data);
         }
     }
+    // Insertion in binary search tree by using recursion 1st method end
 
+    // Insertion in binary search tree by using recursion 2nd method start
     public function insertNode($data){
         $this->root = $this->insertNodeStore($this->root, $data);
     }
@@ -246,8 +248,40 @@ class BinarySearchTree{
         }
         return $node;
     }
+    // Insertion in binary search tree by using recursion 2nd method end
 
-    //display preorder
+    // Insertion in binary search tree without recursion 1st emthod start
+        public function addNodeWithoutRecursionMethod01($data){
+            //create a new node
+            $node = new TreeNode($data); // create a new node
+            if($this->root == null){
+                $this->root = $node; // When adds a frist node in bst
+            }else{
+                $find = $this->root;
+                while($find != null){
+                    if($find->data >= $data){
+                        if($find->left == null){
+                            $find->left = $node; // When left child empty so add new node here
+                            return;
+                        }else{
+                            $find = $find->left; // otherwise visit left sub-tree
+                        }
+                    }else{
+                        if($find->right == null){
+                            $find->right = $node; // when right child empty so add new node here;
+                            return;
+                        }else{
+                            $find = $find->right; // Visit right sub-tree
+                        }
+                    }
+                }
+
+            }
+        }
+    // Insertion in binary search tree without recursion 1st emthod start
+
+
+    //display preorder start
     public function preorder($node){
         if($node != NULL){
             echo " ".strval($node->data); // Display node value
@@ -255,7 +289,9 @@ class BinarySearchTree{
             $this->preorder($node->right); // Visit to right subtree
         }
     }
+    //display preorder end
 
+    //display inorder start
     public function inorder($node){
         if($node != NULL){
             $this->inorder($node->left); // Visit to left subtree
@@ -263,7 +299,9 @@ class BinarySearchTree{
             $this->inorder($node->right); // Visit to right subtree
         }
     }
+    //display inorder end
 
+    //display postorder start
     public function postorder($node){
         if($node != NULL){
             $this->postorder($node->left); // Visit to left subtree
@@ -271,7 +309,9 @@ class BinarySearchTree{
             echo " ".strval($node->data); // Display node value
         }
     }
+    //display postorder end
 
+    // static function main method for 1st method recursive start 
     public static function main(){
         $tree = new BinarySearchTree();
         $tree->root = $tree->addNode($tree->root, 10);
@@ -293,6 +333,7 @@ class BinarySearchTree{
         $tree->postorder($tree->root);
         echo "<br />";
     }
+    // static function main method for 1st method recursive end 
 }
 
 // $tree = new BinarySearchTree();
