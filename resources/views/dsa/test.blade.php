@@ -2796,3 +2796,151 @@ class BinarySearchTree
 }
 BinarySearchTree::main();
 ?>
+
+ 
+
+
+<?php
+//Php program for Sum of alternate leaf nodes in bst. Here mentioned other language solution.
+// Php program for
+// Sum of alternate leaf nodes in bst
+class TreeNode
+{
+	public $data;
+	public $left;
+	public $right;
+	public	function __construct($data)
+	{
+		$this->data = $data;
+		$this->left = NULL;
+		$this->right = NULL;
+	}
+}
+class BinarySearchTree
+{
+	public $root;
+	public $alternate;
+	public	function __construct()
+	{
+		$this->root = NULL;
+		$this->alternate = false;
+	}
+	// Insert a new node element
+	public	function addNode($data)
+	{
+		// Create a new node
+		$node = new TreeNode($data);
+		if ($this->root == NULL)
+		{
+			// When add first node in bst
+			$this->root = $node;
+		}
+		else
+		{
+			$find = $this->root;
+			// Add new node to proper position
+			while ($find != NULL)
+			{
+				if ($find->data >= $data)
+				{
+					if ($find->left == NULL)
+					{
+						// When left child empty
+						// So add new node here
+						$find->left = $node;
+						return;
+					}
+					else
+					{
+						// Otherwise
+						// Visit to left sub-tree
+						$find = $find->left;
+					}
+				}
+				else
+				{
+					if ($find->right == NULL)
+					{
+						// When right child empty
+						// So add new node here.
+						$find->right = $node;
+						return;
+					}
+					else
+					{
+						// Visit to right sub-tree
+						$find = $find->right;
+					}
+				}
+			}
+		}
+	}
+	public	function leafSum($node)
+	{
+		if ($node != NULL)
+		{
+			if ($node->left == NULL && $node->right == NULL)
+			{
+				// Case A
+				// When node is leaf node.
+				// Change status.
+				$this->alternate = !$this->alternate;
+				// Check node is alternate or not.
+				if ($this->alternate)
+				{
+					// When get alternate node.
+					return $node->data;
+				}
+			}
+			else
+			{
+				// Case B
+				// When node is internal
+				// Visit left and right subtree and
+				// Find alternate node.
+				return $this->leafSum($node->left) + 
+                  $this->leafSum($node->right);
+			}
+		}
+		return 0;
+	}
+	public	function alternateLeafSum()
+	{
+		// Reset alternate leaf node status
+		$this->alternate = false;
+		return $this->leafSum($this->root);
+	}
+	public static function main()
+	{
+		$tree = new BinarySearchTree();
+		/*
+			Binary search tree
+		    -------------------
+		       5
+		      /  \  
+		     /    \ 
+		    /      \
+		   3        19
+		  / \     /   \
+		 2   4   8     31
+		       / \    / \
+		      7   15 25  50  
+		*/
+		// Add tree node
+		$tree->addNode(5);
+		$tree->addNode(3);
+		$tree->addNode(19);
+		$tree->addNode(2);
+		$tree->addNode(4);
+		$tree->addNode(8);
+		$tree->addNode(31);
+		$tree->addNode(7);
+		$tree->addNode(25);
+		$tree->addNode(15);
+		$tree->addNode(50);
+		// Test
+		printf("%d\n", $tree->alternateLeafSum());
+	}
+}
+BinarySearchTree::main();
+?>

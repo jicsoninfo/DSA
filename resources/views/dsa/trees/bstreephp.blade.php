@@ -210,9 +210,11 @@ class TreeNode{
 
 class BinarySearchTree{
     public $root;
+    public $alternate; // added this varibale for function program for sum of alternate leaf nodes in bst
     public function __construct()
     {
         $this->root = null;
+        $this->alternate = false; // added this varibale for function program for sum of alternate leaf nodes in bst
     }
 
     // Insertion in binary search tree by using recursion 1st method start
@@ -311,6 +313,26 @@ class BinarySearchTree{
     }
     //display postorder end
 
+    //Program for sum of alternate leaf nodes in bst start
+        public function alternateLeafSum(){
+            $this->alternate = false;
+            return $this->leafSum($this->root);
+        }
+        public function leafSum($node){
+            if($node != null){
+                if($node->left == null && $node->right == null){
+                    $this->alternate = !$this->alternate; //Case A when node is leaf node. change status
+                    if($this->alternate){
+                        return $node->data; // when get alternate node.
+                    }
+                }else{
+                    return $this->leafSum($node->left) + $this->leafSum($node->right); // Case B when node is internal visit left and right subtree and find alternate node.
+                }
+            }
+            return 0;
+        }
+    //Program for sum of alternate leaf nodes in bst start
+
     // static function main method for 1st method recursive start 
     public static function main(){
         $tree = new BinarySearchTree();
@@ -334,6 +356,40 @@ class BinarySearchTree{
         echo "<br />";
     }
     // static function main method for 1st method recursive end 
+
+    // static function method for 1st method without recursive start 
+    public static function withoutrecursive(){
+        $tree = new BinarySearchTree();
+		/*
+		         10
+		        / \
+		       /   \
+		      4     15
+		     / \   /
+		    3   5 12
+		    -------------
+		    Build binary search tree
+
+		*/
+		$tree->addNodeWithoutRecursionMethod01(10);
+		$tree->addNodeWithoutRecursionMethod01(4);
+		$tree->addNodeWithoutRecursionMethod01(3);
+		$tree->addNodeWithoutRecursionMethod01(5);
+		$tree->addNodeWithoutRecursionMethod01(15);
+		$tree->addNodeWithoutRecursionMethod01(12);
+		// Display tree nodes
+		echo "\nPreorder \n";
+        echo "<br />";
+		$tree->preorder($tree->root);
+		echo "\nInorder \n";
+        echo "<br />";
+		$tree->inorder($tree->root);
+		echo "\nPostorder \n";
+        echo "<br />";
+		$tree->postorder($tree->root);
+       
+    }
+    // static function method for 1st method without recursive end 
 }
 
 // $tree = new BinarySearchTree();
@@ -378,6 +434,8 @@ $bst->insertNode(7);
  echo "<br />";
 
 
+ echo "============ with out recursive function 1st method =================";
+ BinarySearchTree::withoutrecursive();
 // echo "<pre>";
 // print_r($bst);
 // die();
