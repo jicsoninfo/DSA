@@ -317,15 +317,22 @@ class BinarySearchTree{
         public function alternateLeafSum(){
             $this->alternate = false;
             return $this->leafSum($this->root);
+            //print_r($this->leafSum($this->root));
+            //echo($this->leafSum($this->root));
         }
         public function leafSum($node){
+            print_r($node);
             if($node != null){
                 if($node->left == null && $node->right == null){
                     $this->alternate = !$this->alternate; //Case A when node is leaf node. change status
                     if($this->alternate){
+                        //print_r($node->data."<br>");
                         return $node->data; // when get alternate node.
                     }
                 }else{
+                    // print_r($this->leafSum($node->left)  ."<br>");
+                    // print_r($this->leafSum($node->right) ."<br>");
+                    //print_r($this->leafSum($node->left) + $this->leafSum($node->right) ."<br>");
                     return $this->leafSum($node->left) + $this->leafSum($node->right); // Case B when node is internal visit left and right subtree and find alternate node.
                 }
             }
@@ -387,9 +394,31 @@ class BinarySearchTree{
 		echo "\nPostorder \n";
         echo "<br />";
 		$tree->postorder($tree->root);
+         echo "<br />";
        
     }
     // static function method for 1st method without recursive end 
+
+     // static function method for prgram for sum of alternate leaf nodes in bst start
+        public static function alternateLeafSummain(){
+            $tree = new BinarySearchTree();
+            $tree->insertNode(5);
+            $tree->insertNode(3);
+            $tree->insertNode(19);
+            $tree->insertNode(2);
+            $tree->insertNode(4);
+            $tree->insertNode(8);
+            $tree->insertNode(31);
+            $tree->insertNode(7);
+            $tree->insertNode(25);
+            $tree->insertNode(15);
+            $tree->insertNode(50);
+            
+            
+            //test
+            printf("\n%d\n", $tree->alternateLeafSum());
+        }
+     // static function method for prgram for sum of alternate leaf nodes in bst end 
 }
 
 // $tree = new BinarySearchTree();
@@ -436,6 +465,9 @@ $bst->insertNode(7);
 
  echo "============ with out recursive function 1st method =================";
  BinarySearchTree::withoutrecursive();
+
+ echo "============ program for sum of alternate leaf nodes in bst =================";
+ BinarySearchTree::alternateLeafSummain();
 // echo "<pre>";
 // print_r($bst);
 // die();
