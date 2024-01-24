@@ -1,0 +1,16 @@
+Bubble Sort For a Linked List
+Perform on Bubble sort in Given linked list, There are many possible solution of this problem.
+
+Method 1: This is very simplest solution of this problem. compared the current node value to all other remaining nodes of linked list. When current node value is smaller then swap the node values by higher element. So this method is based on swapping node element values.
+
+Suppose we are inserted the following (7, 50, 9, 42, 5, 15) node in a sequence.
+
+Bubble sort in linked list
+
+
+Method 2: In this process use two linked list. One is form of given linked 
+        list and second is an empty linked list. Find largest node element to 
+        first linked list and separate this node and add to front of second 
+        linked list. Repeat this step until first linked list is not empty. 
+        Note that this is not actual bubble sort that is a way to achieve bubble 
+        sort.

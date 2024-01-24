@@ -321,7 +321,7 @@ class BinarySearchTree{
             //echo($this->leafSum($this->root));
         }
         public function leafSum($node){
-            print_r($node);
+            //print_r($node);
             if($node != null){
                 if($node->left == null && $node->right == null){
                     $this->alternate = !$this->alternate; //Case A when node is leaf node. change status

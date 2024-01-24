@@ -77,6 +77,14 @@ Route::get('/logics/prac', function () {
 //=======================================
 
 
+
+//=======================================
+Route::get('/sort/bubble', function () {
+    return view('sort.bubble.bubble');
+});
+
+//=======================================
+
 // git init
 // git add .
 // git commit -m "Add existing project files to Git"
