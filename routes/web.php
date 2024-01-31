@@ -63,6 +63,13 @@ Route::get('/phpbstree', function () {
 //=======================================
 
 //=======================================
+
+Route::get('/phpgraph', function () {
+    return view('dsa.graphs.graphphp');
+});
+//=======================================
+
+//=======================================
 Route::get('/logics', function () {
     return view('logical.logical');
 });
