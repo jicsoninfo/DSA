@@ -165,4 +165,52 @@ $weightedDirectedGraph->addEdge('D', 'E', 4);
 $weightedDirectedGraph->displayGraph();
 
 
+
+//To create a weighted undirected graph in PHP using an adjacency list
+class WeightedUndirectedGraph {
+    private $adjacencyList = [];
+
+    // Function to add a vertex to the graph
+    public function addVertex($vertex) {
+        if (!isset($this->adjacencyList[$vertex])) {
+            $this->adjacencyList[$vertex] = [];
+        }
+    }
+
+    // Function to add a weighted edge to the graph
+    public function addEdge($vertex1, $vertex2, $weight) {
+        $this->addVertex($vertex1);
+        $this->addVertex($vertex2);
+
+        // Add weighted edge between vertex1 and vertex2
+        $this->adjacencyList[$vertex1][] = ['vertex' => $vertex2, 'weight' => $weight];
+        $this->adjacencyList[$vertex2][] = ['vertex' => $vertex1, 'weight' => $weight];
+    }
+
+    // Function to display the adjacency list
+    public function displayGraph() {
+        echo "Weighted Adjacency List:\n";
+        foreach ($this->adjacencyList as $vertex => $neighbors) {
+            echo $vertex . " -> ";
+            foreach ($neighbors as $neighbor) {
+                echo $neighbor['vertex'] . " (Weight: " . $neighbor['weight'] . "), ";
+            }
+            echo "\n";
+        }
+    }
+}
+
+// Example usage:
+$weightedUndirectedGraph = new WeightedUndirectedGraph();
+
+// Adding weighted edges to the graph
+$weightedUndirectedGraph->addEdge('A', 'B', 5);
+$weightedUndirectedGraph->addEdge('A', 'C', 3);
+$weightedUndirectedGraph->addEdge('B', 'D', 8);
+$weightedUndirectedGraph->addEdge('C', 'E', 2);
+$weightedUndirectedGraph->addEdge('D', 'E', 4);
+
+// Displaying the weighted adjacency list
+$weightedUndirectedGraph->displayGraph();
+
 ?>
