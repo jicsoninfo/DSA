@@ -161,17 +161,37 @@ class Graph{
 
 //-------------------------- Weighted undirect graph -------------------------------------------------------------------------------
 
+     // ============================Add vertex in weighted undirected graph start=================================
+            // Function to add a vertex to the graph
+            public function addVertex_WeightedUndirectedGraph($vertex){
+                if(!isset($this->adjacencyList[$vertex])){
+                    $this->adjacencyList[$vertex] = [];
+                }
+            }
+     // ============================Add vertex in weighted undirected graph End=================================
+
      // ============================Add edge in weighted undirected graph start=================================
             // Function to add a weighted edge to the graph
             public function addEdge_WeightedUndirectedGraph($vertex1, $vertex2, $weight){
-                
+                $this->addVertex_WeightedUndirectedGraph($vertex1);
+                $this->addVertex_WeightedUndirectedGraph($vertex2);
+                //Add weighted edge between vertex1 and vertex2
+                $this->adjacencyList[$vertex1][] = ['vertex'=> $vertex2, 'weight'=> $weight];
+                $this->adjacencyList[$vertex2][] = ['vertex'=> $vertex1, 'weight'=> $weight];
             }
      // ============================Add edge in weighted undirected graph End=================================
 
       // ============================Display weighted undirected graph start=================================
             // Function to display the adjacency list
             public function displayGraph_WeightedUndirectedGraph(){
-             
+             echo "Weighted Adjacency List:\n";
+             foreach($this->adjacencyList as $vertex => $neighbors ){
+                echo $vertex . " -> ";
+                foreach($neighbors as $neighbor){
+                    echo $neighbor['vertex'] . "(Weight: " . $neighbor['weight'] . "), ";
+                }
+                echo "\n";
+             }
             }
      // ============================Display weighted directed graph End=================================
 
@@ -186,9 +206,10 @@ class Graph{
             $weightedUndirectedGraph->addEdge_WeightedUndirectedGraph('B', 'D', 8);
             $weightedUndirectedGraph->addEdge_WeightedUndirectedGraph('C', 'E', 2);
             $weightedUndirectedGraph->addEdge_WeightedUndirectedGraph('D', 'E', 4);
+            //$weightedUndirectedGraph->addEdge_WeightedUndirectedGraph('A', 'B', 5);
 
             // Displaying the graph
-            echo "================Weighted directed Graph============================";
+            echo "================Weighted Undirected Graph============================";
             echo "<br>";
             echo "<pre>";
             print_r($weightedUndirectedGraph);
@@ -207,6 +228,7 @@ class Graph{
 Graph::undirected_graph();
 Graph::directed_graph();
 Graph::weighted_directed_graph();
+Graph::weighted_undirected_graph();
 
 
 ?>
