@@ -47,7 +47,7 @@ class Graph{
             $undirectedGraph->addEdge_undirectedGraph('D', 'E');
 
             // Displaying the graph
-            echo "================Undirected Graph============================";
+            echo "================Undirected Graph using an adjacency list============================";
             echo "<br>";
             echo "<pre>";
             print_r($undirectedGraph);
@@ -95,7 +95,7 @@ class Graph{
             $directedGraph->addEdge_directedGraph('D', 'E');
 
             // Displaying the graph
-            echo "================directed Graph============================";
+            echo "================directed Graph using an adjacency list============================";
             echo "<br>";
             echo "<pre>";
             print_r($directedGraph);
@@ -146,7 +146,7 @@ class Graph{
             $weightedDirectedGraph->addEdge_WeightedDirectedGraph('D', 'E', 4);
 
             // Displaying the graph
-            echo "================Weighted directed Graph============================";
+            echo "================Weighted directed Graph using an adjacency list============================";
             echo "<br>";
             echo "<pre>";
             print_r($weightedDirectedGraph);
@@ -209,7 +209,7 @@ class Graph{
             //$weightedUndirectedGraph->addEdge_WeightedUndirectedGraph('A', 'B', 5);
 
             // Displaying the graph
-            echo "================Weighted Undirected Graph============================";
+            echo "================Weighted Undirected Graph using an adjacency list============================";
             echo "<br>";
             echo "<pre>";
             print_r($weightedUndirectedGraph);
