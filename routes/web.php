@@ -83,7 +83,15 @@ Route::get('/logics/prac', function () {
 });
 //=======================================
 
+//=======================================
+Route::get('/search/linear', function () {
+    return view('search.linear.linear');
+});
 
+Route::get('/search/binary', function () {
+    return view('search.binary.binary');
+});
+//=======================================
 
 //=======================================
 Route::get('/sort/bubble', function () {
