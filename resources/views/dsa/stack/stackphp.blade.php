@@ -37,4 +37,46 @@ $destvlue =  $stackphp->destack();
  print_r($destvlue);
  $stackphp->destack();
 
+
+echo "<br /> ============================Statck through linked list==========================";
+class node{
+    public $data;
+    public $next;
+}
+
+class ll{
+    public $head;
+    
+    public function __construct(){
+        $this->head = null;
+    }
+    
+    public function front_push($newdata){
+        $newnode = new node();
+        $newnode->data = $newdata;
+        $newnode->next = $this->head;
+        $this->head = $newnode;
+    }
+    
+    public function front_pop(){
+        if($this->head != null){
+            $temp = $this->head;
+            $this->head = $this->head->next;
+            $temp=null;
+        }
+    }
+}
+
+$singlell = new ll();
+$singlell->front_push(12);
+$singlell->front_push(16);
+$singlell->front_push(19);
+
+
+$singlell->front_pop();
+// $singlell->front_pop();
+// $singlell->front_pop();
+// $singlell->front_pop();
+print_r($singlell);
+
 ?>
