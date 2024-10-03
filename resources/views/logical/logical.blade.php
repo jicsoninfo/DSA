@@ -54,6 +54,10 @@ $total_len = count($arr_selection);
                 if($arr_selection[$j]<$arr_selection[$low]){
                     $low = $j;
                 }
+                    // Use strtolower for case-insensitive comparison
+                // if (strtolower($arr_selection[$j]) < strtolower($arr_selection[$low])) {
+                //         $low = $j;
+                // }
                 if($arr_selection[$i]>$arr_selection[$low]){
                     $temp = $arr_selection[$i];
                     $arr_selection[$i] = $arr_selection[$low];
@@ -70,6 +74,40 @@ echo "<pre>";
 print_r($after_sort);
 
 echo "<br>==================================</br>";
+
+echo "<br>==================================</br>";
+echo "<br>below program sorting without function (selection sort string value)</br>";
+$arr_selection = ['Gaurav', 'Vivek', 'Atul', 'prashant', 'gyan', 'mukesh', 'mohit'];
+$total_len = count($arr_selection);
+//$sorted_arr = [];
+
+
+        function selection_sort_string($arr_selection, $len) {
+            for ($i = 0; $i < $len; $i++) {
+                $low = $i;
+                for ($j = $i + 1; $j < $len; $j++) {
+                    // Use strtolower for case-insensitive comparison
+                    if (strtolower($arr_selection[$j]) < strtolower($arr_selection[$low])) {
+                        $low = $j;
+                    }
+                }
+                // Swap the found minimum element with the first element
+                if ($low != $i) {
+                    $temp = $arr_selection[$i];
+                    $arr_selection[$i] = $arr_selection[$low];
+                    $arr_selection[$low] = $temp;
+                }
+            }
+            return $arr_selection;
+        }
+
+$after_sort = selection_sort_string($arr_selection, $total_len);
+echo "<pre>";
+print_r($after_sort);
+
+echo "<br>==================================</br>";
+
+
 echo "<br>below program sorting without function(bubble sort)</br>";
 $arr_bubble = [56, 98, 63, 45, 16, 6, 49];
 $total_arr_len = count($arr_bubble);
