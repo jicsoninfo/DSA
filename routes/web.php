@@ -54,13 +54,29 @@ Route::get('/phpstack', function () {
 //=========================================
 
 //=======================================
+//route for BST
 Route::get('/jsbstree', function () {
-    return view('dsa.trees.js.bstreejs');
+    return view('dsa.trees.bstree.js.bstreejs');
 });
-Route::get('/phpbstree', function () {
-    return view('dsa.trees.bstreephp');
+Route::get('/bstree', function () {
+    return view('dsa.trees.bstree.bstreephp');
+});
+
+Route::get('/bstreecreate', function () {
+    return view('dsa.trees.bstree.01bstreephp');
 });
 //=======================================
+
+
+//=======================================
+//route for avl tree
+Route::get('/avltree', function () {
+    return view('dsa.trees.AVLTree.01avltreecreate');
+});
+//=======================================
+
+
+
 
 //=======================================
 
