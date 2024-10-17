@@ -225,5 +225,88 @@ $avl->insert(25);
 
 echo "Inorder traversal of the AVL tree:\n";
 $avl->inorderTraversal($avl->root); // Output should be in sorted order
+
+
+
+Implementation of Right Rotation in PHP
+
+Visual Example:
+
+Before Rotation:
+
+markdown
+
+      z
+     /
+    y
+   /
+  x
+After Right Rotation:
+
+markdown
+
+      y
+     / \
+    x   z
+
+
+private function rotateRight($z) {
+    $y = $z->left;      // y is now the left child of z
+    $T3 = $y->right;    // T3 is the right subtree of y
+
+    // Perform rotation
+    $y->right = $z;     // y takes z as its right child
+    $z->left = $T3;     // T3 becomes the left child of z
+
+    // Update heights
+    $z->height = 1 + max($this->getHeight($z->left), $this->getHeight($z->right));
+    $y->height = 1 + max($this->getHeight($y->left), $this->getHeight($y->right));
+
+    // Return new root
+    return $y;
+}
+
+
+
+Implementation of Left Rotation in PHP
+php
+Visual Example:
+
+Before Rotation:
+
+markdown
+
+    z
+     \
+      y
+       \
+        x
+After Left Rotation:
+
+markdown
+
+      y
+     / \
+    z   x
+
+
+
+private function rotateLeft($z) {
+    $y = $z->right;     // y is now the right child of z
+    $T2 = $y->left;     // T2 is the left subtree of y
+
+    // Perform rotation
+    $y->left = $z;      // y takes z as its left child
+    $z->right = $T2;    // T2 becomes the right child of z
+
+    // Update heights
+    $z->height = 1 + max($this->getHeight($z->left), $this->getHeight($z->right));
+    $y->height = 1 + max($this->getHeight($y->left), $this->getHeight($y->right));
+
+    // Return new root
+    return $y;
+}
+
+
 */
 ?>
