@@ -45,6 +45,25 @@ class AVLT{
         $balance = $this->getBalance($node);
         echo "balance" .$balance ."<br />";
 
+        //Left Left case
+        if($balance > 1 && $value < $node->left->data){
+            return $this->rightRotate($node);
+        }
+        //Left right case
+        if($balance > 1 && $value > $node->left->data){
+            $node->left =  $this->leftRotate($node->left);
+            return $this->rightRotate($node);
+        }
+        //Right right case
+        if($balance < -1 && $value > $node->right->data){
+            return $this->leftRotate($node);
+        }
+        //Right Left Case
+        if($balance < -1 && $value < $node->right->data){
+            $node->right = $this->rightRotate($node->right);
+            return $this->leftRotate($node);
+        }
+
 
 
 
@@ -62,14 +81,60 @@ class AVLT{
         }
         return $this->getHeight($node->left) - $this->getHeight($node->right);
     }
+
+    public function rightRotate($z){
+        $y = $z->left; // y is now the left child of z
+        $T3 = $y->right; // T3 is the right subtree of y
+
+        //perform rotation
+        $y->right = $z; //y takes z as its right child
+        $z->left = $T3; // T3 becomes the left child of z
+
+        //update heights
+        $z->height = 1 + max($this->getHeight($z->left), $this->getHeight($z->right));
+        $y->height = 1 + max($this->getHeight($y->left), $this->getHeight($y->right));
+
+        //return new root
+        return $y;
+    }
+
+    public function leftRotate($z){
+        $y = $z->right; // y is now the right child of z
+        $T2 = $y->left; // T2 is the left subtree of y
+
+        //perform rotation
+        $y->left = $z; //y takes z as its left child
+        $z->right = $T2; //T2 becomes the right child of z
+
+        //update heights
+        $z->height = 1 + max($this->getHeight($z->left), $this->getHeight($z->right));
+        $y->height = 1 + max($this->getHeight($y->left), $this->getHeight($y->right));
+
+        //return new root
+        return $y;
+    }
+
+
+
+
 }
 
 $avl = new AVLT();
-$avl->insert(30);
-$avl->insert(20);
-$avl->insert(40);
+// $avl->insert(30);
+// $avl->insert(20);
+// $avl->insert(10);
+
 $avl->insert(10);
+$avl->insert(20);
+$avl->insert(30);
+
+
+$avl->insert(40);
+//$avl->insert(10);
 $avl->insert(25);
+
+
+
 
 echo "<pre>";
 print_r($avl);
