@@ -73,6 +73,9 @@ Route::get('/bstreecreate', function () {
 Route::get('/avltree', function () {
     return view('dsa.trees.AVLTree.01avltreecreate');
 });
+Route::get('/avlsearchdelete', function () {
+    return view('dsa.trees.AVLTree.02avlSearchDelete');
+});
 //=======================================
 
 
