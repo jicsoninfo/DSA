@@ -79,6 +79,17 @@ Route::get('/avlsearchdelete', function () {
 //=======================================
 
 
+//=======================================
+//route for Red Blaack tree
+Route::get('/rbtree', function () {
+    return view('dsa.trees.RBTree.01rbtree');
+});
+
+//=======================================
+
+
+
+
 
 
 //=======================================
