@@ -85,6 +85,11 @@ Route::get('/rbtree', function () {
     return view('dsa.trees.RBTree.01rbtree');
 });
 
+Route::get('/rbtsearchdelete', function () {
+    return view('dsa.trees.RBTree.02rbtree');
+});
+
+
 //=======================================
 
 
@@ -111,6 +116,12 @@ Route::get('/logics/test', function () {
 Route::get('/logics/prac', function () {
     return view('logical.prac');
 });
+
+//route for hacker rank problems solving
+Route::get('/logics/hacker', function () {
+    return view('logical.hacker.01hacker');
+});
+
 //=======================================
 
 //=======================================

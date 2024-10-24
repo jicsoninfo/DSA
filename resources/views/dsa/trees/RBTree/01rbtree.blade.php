@@ -1,5 +1,5 @@
 <?php 
-echo "R B T";
+echo "R B T" . "<br>";
 
 
 class RBNode{
@@ -46,9 +46,109 @@ class RedBlackTree {
 
         return $root;
     }
+
     
     private function fixViolation($node){
+        while($node !== null && $node !== $this->root && $node->parent->color == 'red'){
+            $parent = $node->parent;
+            $grandparent = $parent->parent;
 
+            //Case: Parent is left child of grandparent
+            if($parent === $grandparent->left){
+                $uncle = $grandparent->right;
+
+                if($uncle && $uncle->color == 'red'){
+                    //Case 1: Uncle is red
+                    $grandparent->color = 'red';
+                    $parent->color = 'black';
+                    $uncle->color = 'black';
+                    $node =  $grandparent;
+                }else{
+                    //Case 2: Node is right child
+                    if($node === $parent->right){
+                        $this->rotateLeft($parent);
+                        $node = $parent;
+                        $parent = $node->parent;
+                    }
+
+                    //Case 3: Node is left child
+                    $this->rotateRight($parendparent);
+                    $parent->color = 'black';
+                    $grandparent->color = 'red';
+                    break;
+                }
+            }else{
+                //Mirror cases
+                $uncle = $grandparent->left;
+
+                if($uncle && $uncle->color === 'red'){
+                    //Case 1: Uncle is red
+                    $grandparent->color = 'red';
+                    $parent->color = 'black';
+                    $uncle->color = 'black';
+                    $node = $grandparent;
+                }else{
+                    //Case 2: Node is left child
+                    if($node === $parent->left){
+                        $this->rotateRight($parent);
+                        $node = $parent;
+                        $parent = $node->parent;
+                    }
+
+                    //Case 3: Node is right child
+                    $this->rotateLeft($grandparent);
+                    $parent->color = 'black';
+                    $grandparent->color = 'red';
+                    break;
+                }
+            }
+        }
+
+        $this->root->color = 'black'; //Ensure root is black
+    }
+
+    private function rotateLeft($node){
+        $newRoot = $node->right;
+        $node->right = $newRoot->left;
+
+        if($newRoot->left != null){
+            $newRoot->left->parent = $node;
+        }
+
+        $newRoot->parent = $node->parent;
+
+        if($node->parent === null){
+            $this->root = $newRoot;
+        }else if($node === $node->parent->left){
+            $node->parent->left = $newRoot;
+        }else{
+            $node->parent->right = $newRoot;
+        }
+
+        $newRoot->left = $node;
+        $node->parent = $newRoot;
+    }
+
+    private function rotateRight($node){
+        $newRoot = $node->left;
+        $node->left = $newRoot->right;
+
+        if($newRoot->right != null){
+            $newRoot->right->parent = $node;
+        }
+
+        $newRoot->parent = $node->parent;
+
+        if($node->parent === null){
+            $this->root = $newRoot;
+        }else if($node === $node->parent->right){
+            $node->parent->right = $newRoot;
+        }else{
+            $node->parent->left = $newRoot;
+        }
+
+        $newRoot->right = $node;
+        $node->parent = $newRoot;
     }
 
     
@@ -61,33 +161,40 @@ class RedBlackTree {
         if($node !== null){
             $this->inorderTraversal($node->left);
             echo $node->key. " ";
+            // echo "<pre>";
+            // print_r($node->parent) . " ";
             $this->inorderTraversal($node->right);
         }
     }
+
+  
 }
 
-
+  
 
 $rbt = new RedBlackTree();
-$rbt->insert(10);
-$rbt->insert(20);
-$rbt->insert(30);
-$rbt->insert(15);
-$rbt->insert(25);
+// $rbt->insert(10);
+// $rbt->insert(20);
+// $rbt->insert(30);
+// $rbt->insert(15);
+// $rbt->insert(25);
 
-// $rbt->insert(1);
-// $rbt->insert(2);
-// $rbt->insert(3);
-// $rbt->insert(4);
-// $rbt->insert(5);
-// $rbt->insert(6);
-// $rbt->insert(7);
-// $rbt->insert(8);
-// $rbt->insert(9);
+$rbt->insert(1);
+$rbt->insert(2);
+$rbt->insert(3);
+$rbt->insert(4);
+$rbt->insert(5);
+$rbt->insert(6);
+$rbt->insert(7);
+$rbt->insert(8);
+$rbt->insert(9);
 
 echo "Inorder traversal of the Red-Black Tree: ";
 $rbt->inorder(); // Output: 10 15 20 25 30
 echo PHP_EOL;
+
+echo "<pre>";
+print_r($rbt);
 
 
 ?>
