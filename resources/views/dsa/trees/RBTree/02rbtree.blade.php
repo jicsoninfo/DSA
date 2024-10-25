@@ -1,8 +1,116 @@
 <?php
+/*
+
 echo "R B T Search Delete" . "<br>";
+class Node{
+    public $data;
+    public $color; //1 for Red, 0 for Black
+    public $left;
+    public $right;
+    public $parent;
+
+    public function __construct($data){
+        $this->data = $data;
+        $this->color = 1; //New Nodes are red
+        $this->left = null;
+        $this->right = null;
+        $this->parent = null;
+    }
+}
+
+
+class RedBlackTree{
+    private $root;
+
+    public function __construct(){
+        $this->root = null;
+    }
+
+    public function insert($data){
+        $newNode = new Node($data);
+        $y = null;
+        $x = $this->root;
+
+        while($x !== null){
+            $y = $x;
+            if($newNoew->data < $x->data){
+                $x = $x->left;
+            }else{
+                $x = $x->right;
+            }
+        }
+
+        $newNode->parent = $y;
+        if($y === null){
+            $this->root = $newNode;
+        }elseif($newNode->data < $y->data){
+            $y->left = $newNode;
+        }else{
+            $y->right = $newNode;
+        }
+
+        $this->fixInsert($newNode);
+    }
+
+
+    private function fixInsert($k){
+        while ($k->parent !== null && $k->parent->color === 1){
+            if($k->parent === $k->parent->parent->right){
+                $u = $k->parent->parent->right;
+                if($u !== null && $u->color === 1){
+                    $k->parent->color = 0;
+                    $u->color = 0;
+                    $k->parent->parent->color=1;
+                    $k = $k->parent->parent;
+                }else {
+                    if($k === $k->parent->right){
+                        $k = $k->parent;
+                        $this->leftRotate($k);
+                    }
+                    $k->parent->color = 0;
+                    $k->parent->parent->color = 1;
+                    $this->rightRotate($k->parent->parent);
+                }
+            }else{
+                $u = $k->parent->parent->left;
+                if($u ! === null && $u->color === 1){
+                    $k->parent->color = 0;
+                    $u->color = 0;
+                    $k->parent->parent->color = 1;
+                    $k = $k->parent->parent;
+                }else{
+                    if($k === $k->parent->left){
+                        $k = $k->parent;
+                        $this->rightRotate($k);
+                    }
+
+                    $k->parent->color = 0;
+                    $k->parent->parent->color = 1;
+                    $this->leftRotate($k->parent->parent);
+                }
+            }
+        }
+
+        $this->root->color= 0;
+    }
+
+    private function leftRotate($x){
+        
+    }
+
+    private function rightRotate($y){
+    
+    }
 
 
 
+
+}
+
+
+
+
+*/
 
 ?>
 
