@@ -88,4 +88,80 @@ $qphp->enq(20);
 
 echo "<pre>";
 print_r($qphp->s1);
+
+
+echo "=========Queue program through array================" . "<br>";
+
+
+class Queue {
+    private $items = [];
+    //Initialize an empty queue
+    public function __construct(){
+        $this->items = [];
+    }
+
+    //Check if the queue is empty
+    public function isEmpty(){
+        return count($this->items) === 0;
+    }
+
+    //Add an item to the back of the queue
+    public function enqueue($item){
+        $this->items[] = $item;
+    }
+
+    //Remove and return the front item of the queue
+    public function dequeue(){
+        if(!$this->isEmpty()){
+            return array_shift($this->items); //Removes the first item
+        }else{
+            throw new Exception('Dequeue from an empty queue');
+        }
+    }
+
+    //Display the current items in the queue
+    public function display() {
+        echo "Queue: " . implode(", ", $this->items) . PHP_EOL;
+    }
+
+    //Return the number of items in the queue
+    public function size(){
+        return count($this->items);
+    }
+
+    //Return the front item of the queue without removing
+    public function peek(){
+        if(!$this->isEmpty()){
+            return $this->items[0]; //the first item in the array
+        }else{
+            throw new Exception("Peek from an empty queus");
+        }
+    }
+}
+
+
+// Example usage of the Queue class
+$queue = new Queue();
+
+// Add items to the queue
+$queue->enqueue('Task 1');
+$queue->enqueue('Task 2');
+$queue->enqueue('Task 3');
+
+// Display the current queue
+$queue->display();  // Queue: Task 1, Task 2, Task 3
+
+// Remove and return the front item (dequeue)
+echo "Dequeued: " . $queue->dequeue() . PHP_EOL;  // Dequeued: Task 1
+
+// Display the current queue after dequeue
+$queue->display();  // Queue: Task 2, Task 3
+
+// Peek the front item without removing it
+echo "Front item: " . $queue->peek() . PHP_EOL;  // Front item: Task 2
+
+// Display the current size of the queue
+echo "Queue size: " . $queue->size() . PHP_EOL;  // Queue size: 2
+
+
 ?>
