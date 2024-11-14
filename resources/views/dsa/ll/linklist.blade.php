@@ -11,7 +11,7 @@ class ll{
         }
 
     //display the content of the list
-                public function PrintList() {
+    public function PrintList() {
                     $temp = new Node();
                     $temp = $this->head;
                     //print_r($temp);
@@ -27,7 +27,7 @@ class ll{
                     } else {
                     echo "The list is empty.\n";
                     }
-                }
+    }
     // Insert a new node at the start of the Linked List
     public function push_front($newElement){
         $newNode = new Node();
