@@ -904,5 +904,5 @@ echo "Front item: " . $priorityQueue->peek() . PHP_EOL;  // Front item: Task 3
 
 // Display the current size of the queue
 echo "Queue size: " . $priorityQueue->size() . PHP_EOL;  // Queue size: 2
-
+*/
 ?>
