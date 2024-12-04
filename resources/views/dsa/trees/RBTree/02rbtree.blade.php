@@ -667,4 +667,242 @@ echo "\n";
 */
 
 
+//circular queue
+/*
+class NodeQ {
+    public $data;
+    public $next;
+
+    public function __construct($data){
+        $this->data = $data;
+        $this->next = null; // Initially, the next node is null
+    }
+}
+
+class QueueLL {
+    private $head; // Points to the front of the queue
+    private $tail; // Points to the back of the queue
+    private $size; // The number of elements in the queue
+
+    // Initialize the queue as empty
+    public function __construct(){
+        $this->head = null;
+        $this->tail = null;
+        $this->size = 0;
+    }
+
+    // Check if the queue is empty
+    public function isEmpty(){
+        return $this->size === 0;
+    }
+
+    // Add an item to the back of the queue
+    public function enqueue($item){
+        $newNode = new NodeQ($item); // Create a new node
+        if($this->isEmpty()){
+            $this->head = $newNode; // If the queue is empty, both head and tail point to the new node
+            $this->tail = $newNode;
+            $this->tail->next = $this->head; // Make the tail point to the head to complete the circular nature
+        } else {
+            $this->tail->next = $newNode; // Attach the new node to the end of the queue
+            $this->tail = $newNode; // Update the tail to the new node
+            $this->tail->next = $this->head; // The tail should point to the head
+        }
+        $this->size++; // Increase the size of the queue
+    }
+
+    // Remove and return the front item of the queue
+    public function dequeue(){
+        if(!$this->isEmpty()){
+            $frontItem = $this->head->data; // Get the data of the front node
+            if($this->head === $this->tail){ // If there's only one node in the queue
+                $this->head = null;
+                $this->tail = null;
+            } else {
+                $this->head = $this->head->next; // Move the head pointer to the next node
+                $this->tail->next = $this->head; // The tail should point to the new head
+            }
+            $this->size--; // Decrease the size of the queue
+            return $frontItem;
+        } else {
+            throw new Exception('Dequeue from an empty queue');
+        }
+    }
+
+    // Display the current items in the queue
+    public function display(){
+        if($this->isEmpty()){
+            echo "Queue is empty" . PHP_EOL;
+            return;
+        }
+
+        $current = $this->head;
+        $queueItems = [];
+
+        do {
+            $queueItems[] = $current->data;
+            $current = $current->next;
+        } while($current !== $this->head); // Stop when we complete one full cycle of the queue
+
+        echo "Queue: " . implode(", ", $queueItems) . PHP_EOL;
+    }
+
+    // Return the number of items in the queue
+    public function size(){
+        return $this->size;
+    }
+
+    // Return the front item of the queue without removing it
+    public function peek(){
+        if(!$this->isEmpty()){
+            return $this->head->data;
+        } else {
+            throw new Exception('Peek from an empty queue');
+        }
+    }
+}
+
+// Example usage of the Circular Queue class
+$queue = new QueueLL();
+
+// Add items to the queue
+$queue->enqueue('Task 1');
+$queue->enqueue('Task 2');
+$queue->enqueue('Task 3');
+
+// Display the current queue
+$queue->display(); // Queue: Task 1, Task 2, Task 3
+
+// Remove and return the front item (dequeue)
+echo "Dequeued: " . $queue->dequeue() . PHP_EOL;  // Dequeued: Task 1
+
+// Display the current queue after dequeue
+$queue->display(); // Queue: Task 2, Task 3
+
+// Peek the front item without removing it
+echo "Front item: " . $queue->peek() . PHP_EOL;  // Front item: Task 2
+
+// Display the current size of the queue
+echo "Queue size: " . $queue->size() . PHP_EOL;  // Queue size: 2
+
+
+
+//priority queue
+class NodeQ {
+    public $data;
+    public $priority;
+    public $next;
+
+    public function __construct($data, $priority){
+        $this->data = $data;
+        $this->priority = $priority;
+        $this->next = null;
+    }
+}
+
+class PriorityQueue {
+    private $head; // Points to the front of the queue
+    private $size; // The number of elements in the queue
+
+    // Initialize the queue as empty
+    public function __construct(){
+        $this->head = null;
+        $this->size = 0;
+    }
+
+    // Check if the queue is empty
+    public function isEmpty(){
+        return $this->size === 0;
+    }
+
+    // Add an item to the queue based on priority
+    public function enqueue($data, $priority){
+        $newNode = new NodeQ($data, $priority); // Create a new node
+
+        // If the queue is empty or the new node has higher priority than the head node
+        if($this->isEmpty() || $newNode->priority > $this->head->priority){
+            // Insert the node at the front of the queue
+            $newNode->next = $this->head;
+            $this->head = $newNode;
+        } else {
+            // Find the correct position for the new node
+            $current = $this->head;
+            while ($current->next != null && $current->next->priority >= $newNode->priority) {
+                $current = $current->next;
+            }
+            // Insert the new node after the current node
+            $newNode->next = $current->next;
+            $current->next = $newNode;
+        }
+        $this->size++; // Increase the size of the queue
+    }
+
+    // Remove and return the item with the highest priority
+    public function dequeue(){
+        if(!$this->isEmpty()){
+            $frontItem = $this->head->data; // Get the data of the front node
+            $this->head = $this->head->next; // Move the head pointer to the next node
+            $this->size--; // Decrease the size of the queue
+            return $frontItem;
+        } else {
+            throw new Exception('Dequeue from an empty queue');
+        }
+    }
+
+    // Display the current items in the queue
+    public function display(){
+        if($this->isEmpty()){
+            echo "Queue is empty" . PHP_EOL;
+            return;
+        }
+
+        $current = $this->head;
+        $queueItems = [];
+
+        while($current != null){
+            $queueItems[] = $current->data . "(Priority: " . $current->priority . ")";
+            $current = $current->next;
+        }
+
+        echo "Priority Queue: " . implode(" -> ", $queueItems) . PHP_EOL;
+    }
+
+    // Return the number of items in the queue
+    public function size(){
+        return $this->size;
+    }
+
+    // Return the front item of the queue without removing it
+    public function peek(){
+        if(!$this->isEmpty()){
+            return $this->head->data;
+        } else {
+            throw new Exception('Peek from an empty queue');
+        }
+    }
+}
+
+// Example usage of the Priority Queue class
+$priorityQueue = new PriorityQueue();
+
+// Add items to the queue with priority
+$priorityQueue->enqueue('Task 1', 3); // Priority 3
+$priorityQueue->enqueue('Task 2', 1); // Priority 1
+$priorityQueue->enqueue('Task 3', 2); // Priority 2
+
+// Display the current queue
+$priorityQueue->display(); // Priority Queue: Task 1(Priority: 3) -> Task 3(Priority: 2) -> Task 2(Priority: 1)
+
+// Remove and return the front item (dequeue)
+echo "Dequeued: " . $priorityQueue->dequeue() . PHP_EOL;  // Dequeued: Task 1
+
+// Display the current queue after dequeue
+$priorityQueue->display(); // Priority Queue: Task 3(Priority: 2) -> Task 2(Priority: 1)
+
+// Peek the front item without removing it
+echo "Front item: " . $priorityQueue->peek() . PHP_EOL;  // Front item: Task 3
+
+// Display the current size of the queue
+echo "Queue size: " . $priorityQueue->size() . PHP_EOL;  // Queue size: 2
+
 ?>

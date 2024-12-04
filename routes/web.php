@@ -45,8 +45,17 @@ Route::get('/jsq', function () {
 
 //=======================================
 Route::get('/phpq', function () {
-    return view('dsa.queue.queuephp');
+    return view('dsa.queue.q.01queuephp');
 });
+
+Route::get('/phpcq', function () {
+    return view('dsa.queue.cq.01circularqphp');
+});
+
+Route::get('/phppq', function () {
+    return view('dsa.queue.pq.01priorityqphp');
+});
+
 
 Route::get('/phpstack', function () {
     return view('dsa.stack.stackphp');
