@@ -664,5 +664,532 @@ $tree->preOrder();
 echo "\n";
 ?>
 
+
+
+
+//DQueue=======================================================
+class Node {
+    public $data;
+    public $next;
+    public $prev;
+
+    public function __construct($data) {
+        $this->data = $data;
+        $this->next = null;
+        $this->prev = null;
+    }
+}
+
+class Deque {
+    private $front;
+    private $rear;
+    private $size;
+
+    public function __construct() {
+        $this->front = null;
+        $this->rear = null;
+        $this->size = 0;
+    }
+
+    // Add an element to the front of the deque
+    public function addFirst($data) {
+        $newNode = new Node($data);
+        if ($this->isEmpty()) {
+            $this->front = $this->rear = $newNode;
+        } else {
+            $newNode->next = $this->front;
+            $this->front->prev = $newNode;
+            $this->front = $newNode;
+        }
+        $this->size++;
+    }
+
+    // Add an element to the back of the deque
+    public function addLast($data) {
+        $newNode = new Node($data);
+        if ($this->isEmpty()) {
+            $this->front = $this->rear = $newNode;
+        } else {
+            $newNode->prev = $this->rear;
+            $this->rear->next = $newNode;
+            $this->rear = $newNode;
+        }
+        $this->size++;
+    }
+
+    // Remove an element from the front of the deque
+    public function removeFirst() {
+        if ($this->isEmpty()) {
+            throw new Exception('Deque is empty');
+        }
+        $data = $this->front->data;
+        if ($this->front === $this->rear) {
+            $this->front = $this->rear = null; // Only one element
+        } else {
+            $this->front = $this->front->next;
+            $this->front->prev = null;
+        }
+        $this->size--;
+        return $data;
+    }
+
+    // Remove an element from the back of the deque
+    public function removeLast() {
+        if ($this->isEmpty()) {
+            throw new Exception('Deque is empty');
+        }
+        $data = $this->rear->data;
+        if ($this->front === $this->rear) {
+            $this->front = $this->rear = null; // Only one element
+        } else {
+            $this->rear = $this->rear->prev;
+            $this->rear->next = null;
+        }
+        $this->size--;
+        return $data;
+    }
+
+    // Return the element at the front without removing it
+    public function peekFirst() {
+        if ($this->isEmpty()) {
+            throw new Exception('Deque is empty');
+        }
+        return $this->front->data;
+    }
+
+    // Return the element at the back without removing it
+    public function peekLast() {
+        if ($this->isEmpty()) {
+            throw new Exception('Deque is empty');
+        }
+        return $this->rear->data;
+    }
+
+    // Check if the deque is empty
+    public function isEmpty() {
+        return $this->size === 0;
+    }
+
+    // Get the size of the deque
+    public function size() {
+        return $this->size;
+    }
+
+    // Display all elements in the deque
+    public function display() {
+        if ($this->isEmpty()) {
+            echo "Deque is empty\n";
+            return;
+        }
+        $current = $this->front;
+        while ($current != null) {
+            echo $current->data . " <-> ";
+            $current = $current->next;
+        }
+        echo "NULL\n";
+    }
+}
+
+// Example usage:
+$deque = new Deque();
+
+// Adding elements to the front and back
+$deque->addFirst(10);
+$deque->addFirst(20);
+$deque->addLast(30);
+$deque->addLast(40);
+
+// Display the deque
+$deque->display(); // Output: 20 <-> 10 <-> 30 <-> 40 <-> NULL
+
+// Removing elements from the front and back
+echo "Removed from front: " . $deque->removeFirst() . "\n"; // Output: 20
+echo "Removed from back: " . $deque->removeLast() . "\n"; // Output: 40
+
+// Display the updated deque
+$deque->display(); // Output: 10 <-> 30 <-> NULL
+
+// Peek at the front and back
+echo "Peek at front: " . $deque->peekFirst() . "\n"; // Output: 10
+echo "Peek at back: " . $deque->peekLast() . "\n"; // Output: 30
+
+
+
+//array implementions ==============
+Deque with Array Implementation:
+Another way to implement a deque is by using a circular array (or a simple array in PHP). This is more efficient for fixed-size deques.
+
+Here’s an example of a deque implemented using an array:
+
+
+class ArrayDeque {
+    private $deque;
+    private $front;
+    private $rear;
+    private $size;
+    private $capacity;
+
+    public function __construct($capacity) {
+        $this->capacity = $capacity;
+        $this->deque = array_fill(0, $capacity, null);
+        $this->front = -1;
+        $this->rear = -1;
+        $this->size = 0;
+    }
+
+    // Add an element to the front
+    public function addFirst($data) {
+        if ($this->size == $this->capacity) {
+            throw new Exception("Deque is full");
+        }
+        if ($this->front == 0) {
+            $this->front = $this->capacity - 1;
+        } else {
+            $this->front--;
+        }
+        $this->deque[$this->front] = $data;
+        $this->size++;
+    }
+
+    // Add an element to the back
+    public function addLast($data) {
+        if ($this->size == $this->capacity) {
+            throw new Exception("Deque is full");
+        }
+        if ($this->rear == $this->capacity - 1) {
+            $this->rear = 0;
+        } else {
+            $this->rear++;
+        }
+        $this->deque[$this->rear] = $data;
+        $this->size++;
+    }
+
+    // Remove an element from the front
+    public function removeFirst() {
+        if ($this->size == 0) {
+            throw new Exception("Deque is empty");
+        }
+        $data = $this->deque[$this->front];
+        $this->front = ($this->front + 1) % $this->capacity;
+        $this->size--;
+        return $data;
+    }
+
+    // Remove an element from the back
+    public function removeLast() {
+        if ($this->size == 0) {
+            throw new Exception("Deque is empty");
+        }
+        $data = $this->deque[$this->rear];
+        $this->rear = ($this->rear - 1 + $this->capacity) % $this->capacity;
+        $this->size--;
+        return $data;
+    }
+
+    // Check if the deque is empty
+    public function isEmpty() {
+        return $this->size == 0;
+    }
+
+    // Get the size of the deque
+    public function size() {
+        return $this->size;
+    }
+
+    // Display the deque
+    public function display() {
+        if ($this->isEmpty()) {
+            echo "Deque is empty\n";
+            return;
+        }
+        $index = $this->front;
+        for ($i = 0; $i < $this->size; $i++) {
+            echo $this->deque[$index] . " ";
+            $index = ($index + 1) % $this->capacity;
+        }
+        echo "\n";
+    }
+}
+
+// Example usage:
+$arrayDeque = new ArrayDeque(5);
+
+$arrayDeque->addFirst(10);
+$arrayDeque->addLast(20);
+$arrayDeque->addFirst(5);
+$arrayDeque->addLast(30);
+
+$arrayDeque->display(); // Output: 5 10 20 30
+
+echo "Removed from front: " . $arrayDeque->removeFirst() . "\n"; // Output: 5
+echo "Removed from back: " . $arrayDeque->removeLast() . "\n"; // Output: 30
+
+$arrayDeque->display(); // Output: 10 20
+
+
+
+//===================================
+//Implementation of Input Restricted Queue in PHP (Using Doubly Linked List)
+
+class Node {
+    public $data;
+    public $next;
+    public $prev;
+
+    public function __construct($data) {
+        $this->data = $data;
+        $this->next = null;
+        $this->prev = null;
+    }
+}
+
+class InputRestrictedQueue {
+    private $front;
+    private $rear;
+    private $size;
+
+    public function __construct() {
+        $this->front = null;
+        $this->rear = null;
+        $this->size = 0;
+    }
+
+    // Enqueue operation (only allows inserting at the rear)
+    public function enqueue($data) {
+        $newNode = new Node($data);
+        if ($this->isEmpty()) {
+            $this->front = $this->rear = $newNode;
+        } else {
+            $this->rear->next = $newNode;
+            $newNode->prev = $this->rear;
+            $this->rear = $newNode;
+        }
+        $this->size++;
+    }
+
+    // Dequeue from the front of the queue
+    public function dequeueFromFront() {
+        if ($this->isEmpty()) {
+            throw new Exception('Queue is empty');
+        }
+
+        $data = $this->front->data;
+        $this->front = $this->front->next;
+        
+        if ($this->front != null) {
+            $this->front->prev = null;
+        } else {
+            $this->rear = null; // If the queue is now empty
+        }
+
+        $this->size--;
+        return $data;
+    }
+
+    // Dequeue from the rear of the queue
+    public function dequeueFromRear() {
+        if ($this->isEmpty()) {
+            throw new Exception('Queue is empty');
+        }
+
+        $data = $this->rear->data;
+        $this->rear = $this->rear->prev;
+        
+        if ($this->rear != null) {
+            $this->rear->next = null;
+        } else {
+            $this->front = null; // If the queue is now empty
+        }
+
+        $this->size--;
+        return $data;
+    }
+
+    // Peek at the front element
+    public function peekFront() {
+        if ($this->isEmpty()) {
+            throw new Exception('Queue is empty');
+        }
+        return $this->front->data;
+    }
+
+    // Peek at the rear element
+    public function peekRear() {
+        if ($this->isEmpty()) {
+            throw new Exception('Queue is empty');
+        }
+        return $this->rear->data;
+    }
+
+    // Check if the queue is empty
+    public function isEmpty() {
+        return $this->size === 0;
+    }
+
+    // Get the size of the queue
+    public function size() {
+        return $this->size;
+    }
+
+    // Display the elements of the queue
+    public function display() {
+        if ($this->isEmpty()) {
+            echo "Queue is empty\n";
+            return;
+        }
+        $current = $this->front;
+        while ($current != null) {
+            echo $current->data . " <-> ";
+            $current = $current->next;
+        }
+        echo "NULL\n";
+    }
+}
+
+// Example usage:
+
+$queue = new InputRestrictedQueue();
+
+// Enqueue elements at the rear (Input Restricted)
+$queue->enqueue(10);
+$queue->enqueue(20);
+$queue->enqueue(30);
+
+// Display the current state of the queue
+$queue->display(); // Output: 10 <-> 20 <-> 30 <-> NULL
+
+// Dequeue from the front
+echo "Dequeue from front: " . $queue->dequeueFromFront() . "\n"; // Output: 10
+$queue->display(); // Output: 20 <-> 30 <-> NULL
+
+// Dequeue from the rear
+echo "Dequeue from rear: " . $queue->dequeueFromRear() . "\n"; // Output: 30
+$queue->display(); // Output: 20 <-> NULL
+
+// Peek at the front and rear elements
+echo "Peek at front: " . $queue->peekFront() . "\n"; // Output: 20
+echo "Peek at rear: " . $queue->peekRear() . "\n"; // Output: 20
+
+// Check if the queue is empty
+echo "Is the queue empty? " . ($queue->isEmpty() ? "Yes" : "No") . "\n"; // Output: No
+
+
+
+
+//Input Restricted Queue with Circular Array (Alternative Implementation)
+class InputRestrictedQueueArray {
+    private $queue;
+    private $front;
+    private $rear;
+    private $size;
+    private $capacity;
+
+    public function __construct($capacity) {
+        $this->capacity = $capacity;
+        $this->queue = array_fill(0, $capacity, null);
+        $this->front = -1;
+        $this->rear = -1;
+        $this->size = 0;
+    }
+
+    // Enqueue operation (only allows inserting at the rear)
+    public function enqueue($data) {
+        if ($this->size == $this->capacity) {
+            throw new Exception("Queue is full");
+        }
+        if ($this->front == -1) {
+            $this->front = 0;
+        }
+        $this->rear = ($this->rear + 1) % $this->capacity;
+        $this->queue[$this->rear] = $data;
+        $this->size++;
+    }
+
+    // Dequeue from the front
+    public function dequeueFromFront() {
+        if ($this->size == 0) {
+            throw new Exception("Queue is empty");
+        }
+        $data = $this->queue[$this->front];
+        if ($this->front == $this->rear) {
+            $this->front = $this->rear = -1; // Queue becomes empty
+        } else {
+            $this->front = ($this->front + 1) % $this->capacity;
+        }
+        $this->size--;
+        return $data;
+    }
+
+    // Dequeue from the rear
+    public function dequeueFromRear() {
+        if ($this->size == 0) {
+            throw new Exception("Queue is empty");
+        }
+        $data = $this->queue[$this->rear];
+        if ($this->front == $this->rear) {
+            $this->front = $this->rear = -1; // Queue becomes empty
+        } else {
+            $this->rear = ($this->rear - 1 + $this->capacity) % $this->capacity;
+        }
+        $this->size--;
+        return $data;
+    }
+
+    // Peek at the front element
+    public function peekFront() {
+        if ($this->size == 0) {
+            throw new Exception("Queue is empty");
+        }
+        return $this->queue[$this->front];
+    }
+
+    // Peek at the rear element
+    public function peekRear() {
+        if ($this->size == 0) {
+            throw new Exception("Queue is empty");
+        }
+        return $this->queue[$this->rear];
+    }
+
+    // Check if the queue is empty
+    public function isEmpty() {
+        return $this->size == 0;
+    }
+
+    // Get the size of the queue
+    public function size() {
+        return $this->size;
+    }
+
+    // Display the queue
+    public function display() {
+        if ($this->isEmpty()) {
+            echo "Queue is empty\n";
+            return;
+        }
+        $i = $this->front;
+        while ($i != $this->rear) {
+            echo $this->queue[$i] . " ";
+            $i = ($i + 1) % $this->capacity;
+        }
+        echo $this->queue[$this->rear] . "\n";
+    }
+}
+
+// Example usage:
+$queue = new InputRestrictedQueueArray(5);
+
+$queue->enqueue(10);
+$queue->enqueue(20);
+$queue->enqueue(30);
+$queue->display();
+
+echo "Dequeue from front: " . $queue->dequeueFromFront() . "\n";
+$queue->display();
+
+echo "Dequeue from rear: " . $queue->dequeueFromRear() . "\n";
+$queue->display();
+
 */
 ?>
