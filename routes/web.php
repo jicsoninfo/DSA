@@ -57,6 +57,11 @@ Route::get('/phppq', function () {
 });
 
 
+Route::get('/phpdq', function () {
+    return view('dsa.queue.dq.01doubleendedqphp');
+});
+
+
 Route::get('/phpstack', function () {
     return view('dsa.stack.stackphp');
 });
