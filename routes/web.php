@@ -65,6 +65,11 @@ Route::get('/phpinputrestrictdq', function () {
     return view('dsa.queue.dq.02inputrestrictdqphp');
 });
 
+Route::get('/phpoutputrestrictdq', function () {
+    return view('dsa.queue.dq.03outputrestrictdqphp');
+});
+
+
 
 
 Route::get('/phpstack', function () {

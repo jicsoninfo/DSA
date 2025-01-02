@@ -139,11 +139,15 @@ echo "<br>below program sorting without function(merge sort)</br>";
 
 
 echo "<br>==================================</br>";
-
+echo ("Pre increment and post increment") ."<br>";
 $a = 10;
 $a = $a++;
-$a = ++$a;
+//$a = ++$a;
 echo $a."<br />";
+// echo $a ."<br>";
+$a = $a++;
+//$a1 = $a+2;
+echo $a . "<br>";
 
 $b = 10;
 $b = $b--;
@@ -165,7 +169,56 @@ echo ++$j."<br/ >";
 echo $j."<br/ >";
 
 echo "<br>==================================</br>";
+echo ("Unique value in array") ."<br>";
+//PHP provides the built-in function array_unique(), which removes duplicate values from an array and returns an array with only unique values.
+echo ("PHP provides the built-in function array_unique(), which removes duplicate values from an array and returns an array with only unique values.");
+$array = [1, 2, 3, 4, 3, 2, 5];
+$uniqueArray = array_unique($array);
+print_r($uniqueArray);
+
+echo ("If you want to remove the keys from the resulting array, you can combine array_unique() with array_values() to reindex the array.");
+$array1 = [1, 2, 3, 4, 3, 2, 5];
+$uniqueArray1 = array_values(array_unique($array1));
+
+print_r($uniqueArray1);
+
+
+echo ("You can also manually iterate over the array and track unique values using a temporary array to remove duplicates. This method gives you more control.");
+
+$array2 = [1, 2, 3, 4, 3, 2, 5];
+$uniqueArray2 = [];
+
+foreach ($array2 as $value2) {
+    if (!in_array($value2, $uniqueArray2)) {
+        $uniqueArray2[] = $value2;
+    }
+}
+
+print_r($uniqueArray2);
+
+
+echo ("Another approach is to use array_flip(), which swaps the keys and values in the array. Since array keys are unique, this will automatically remove duplicates.");
+$array3 = [1, 2, 3, 4, 3, 2, 5];
+$uniqueArray3 = array_flip(array_flip($array3));
+
+print_r($uniqueArray3);
+
+
+echo ("Example with Non-Numeric Values (Potential Issue):");
+$array4 = ['apple', 'banana', 'orange', 'banana', 'apple'];
+$flipped4 = array_flip($array4);
+
+print_r($flipped4);
+
+echo ("For non-numeric values, you should use array_unique() instead, which will keep the first occurrence of each value.");
+$array5 = ['apple', 'banana', 'orange', 'banana', 'apple'];
+$uniqueArray5 = array_unique($array5);
+
+print_r($uniqueArray5);
+
 echo "<br>==================================</br>";
+
+
 echo "<br>==================================</br>";
 echo "<br>==================================</br>";
 echo "<br>==================================</br>";
