@@ -218,6 +218,33 @@ print_r($uniqueArray5);
 
 echo "<br>==================================</br>";
 
+        echo "To delete a value from an array in PHP, you can use the following methods, depending on your requirements:" . "<br>";
+        echo "1. Using unset() function" ."<br>";
+        $array01 = [2,3,4,6,7];
+		unset($array01[3]);
+		print_r(array_values($array01));
+
+        echo "2. Using array_splice() function" ."<br>" ;
+		$array02 = [3,4,5,6,7,8,9];
+		array_splice($array02, 3, 1);
+		print_r($array02);
+
+        echo "3. Using array_filter() function" ."<br>" ;
+		$array03 = [6,7,8,9,10,11,12,13];
+		$array03 = array_filter($array03, function($value01){
+			return $value01 != 11;
+		});
+		print_r($array03);
+        $array03 = array_values($array03);
+        print_r($array03);
+
+        echo "4. Using array_search() and unset() (for specific value)" ."<br>" ;
+		$array04 = [3,4,5,6,7,8,9,10];
+		$key04 = array_search(5, $array04);
+		if($key04 != false){
+			unset($array04[$key04]);
+		}
+		print_r($array04);
 
 echo "<br>==================================</br>";
 echo "<br>==================================</br>";
