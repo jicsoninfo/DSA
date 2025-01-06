@@ -1,4 +1,5 @@
 <?php
+// dll //route for doubly linked list
 echo "Doubly LL";
 
     class DNode{

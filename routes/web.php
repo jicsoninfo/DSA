@@ -16,23 +16,28 @@ use Illuminate\Support\Facades\Route;
 
 //=======================================
 Route::get('/', function () {
-    return view('dsa.ll.linklist');
+    return view('dsa.ll.sll.linklist');
 });
 
+Route::get('/links', function () {
+    return view('pagelinks.01links');
+});
+
+
 Route::get('/csll', function () {
-    return view('dsa.ll.CircularSinglyLL');
+    return view('dsa.ll.csll.CircularSinglyLL');
 });
 Route::get('/dll', function () {
-    return view('dsa.ll.DoublyLL');
+    return view('dsa.ll.dll.DoublyLL');
 });
 Route::get('/cdll', function () {
-    return view('dsa.ll.CircularDoublyLL');
+    return view('dsa.ll.cdll.CircularDoublyLL');
 });
 //=======================================
 
 //=======================================
 Route::get('/singlylljs', function () {
-    return view('dsa.ll.lljs.singlylljs');
+    return view('dsa.ll.lljs.slljs.singlylljs');
 });
 //=======================================
 
@@ -124,13 +129,13 @@ Route::get('/rbtsearchdelete', function () {
 //=======================================
 
 Route::get('/phpgraph', function () {
-    return view('dsa.graphs.graphphp');
+    return view('dsa.graphs.adjancylist.01graphphp');
 });
 //=======================================
 
 //=======================================
 Route::get('/logics', function () {
-    return view('logical.logical');
+    return view('logical.logical.01logical');
 });
 
 Route::get('/logics/test', function () {
@@ -138,7 +143,7 @@ Route::get('/logics/test', function () {
 });
 
 Route::get('/logics/prac', function () {
-    return view('logical.prac');
+    return view('logical.practice.01practice');
 });
 
 //route for hacker rank problems solving

@@ -1,4 +1,6 @@
 <?php 
+
+// "/" route
 echo "Singly LL";
 class node{
     public $data;

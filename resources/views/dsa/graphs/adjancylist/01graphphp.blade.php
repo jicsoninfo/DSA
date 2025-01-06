@@ -1,4 +1,6 @@
 <?php 
+
+//phpgraph //route for graph through adjancy list
 /*
 //Creating an undirected graph in PHP using an adjacency list 
 //representation involves managing an array where each vertex is associated with a list of its neighboring vertices.
