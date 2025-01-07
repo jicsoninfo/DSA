@@ -30,6 +30,9 @@ Route::get('/csll', function () {
 Route::get('/dll', function () {
     return view('dsa.ll.dll.DoublyLL');
 });
+Route::get('/dll01', function () {
+    return view('dsa.ll.dll.01Doublyll');
+});
 Route::get('/cdll', function () {
     return view('dsa.ll.cdll.CircularDoublyLL');
 });
