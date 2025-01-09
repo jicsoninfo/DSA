@@ -1,6 +1,164 @@
 <?php
 ///dll01 //Route
 
+
+//Singly linked list
+echo "Singly linked list" ."<br>";
+         class nodesll{
+            public $data;
+            public $next;
+
+            public function __construct($data){
+                $this->data = $data;
+                $this->next = null;
+            }
+         }
+
+         class sll{
+            public $head;
+
+            public function __construct(){
+                $this->head = null;
+            }
+
+            public function sll_add_front($data){
+                $newNodeSll = new nodesll($data);
+                $newNodeSll->next = $this->head;
+                $this->head = $newNodeSll;
+            }
+
+            public function sll_push_back($data){
+                $newNodeSll = new nodesll($data);
+                if($this->head == null){
+                   
+                    $this->head = $newNodeSll;
+                }else{
+                    $temp = $this->head;
+                    while($temp->next !== null){
+                        $temp = $temp->next;
+                    }
+
+                    $temp->next = $newNodeSll;
+                }
+            }
+
+
+            public function sll_print(){
+                if($this->head == null){
+                    echo "list is empty";
+                }else{
+                    $temp = $this->head;
+                    while($temp != null){
+                        echo $temp->data ."<br>";
+                        $temp = $temp->next;
+                    }
+                }
+
+            }
+
+
+
+
+         }
+
+         $newsll = new sll();
+         $newsll->sll_add_front(10);
+         $newsll->sll_add_front(12);
+         $newsll->sll_add_front(14);
+         $newsll->sll_add_front(16);
+         $newsll->sll_add_front(18);
+
+         $newsll->sll_push_back(20);
+         $newsll->sll_push_back(22);
+         $newsll->sll_push_back(24);
+         $newsll->sll_push_back(26);
+
+         $newsll->sll_print();
+        //  echo "<pre>";
+        //  print_r($newsll);
+
+//========================================================
+echo "=====================================================" ."<br>";
+echo "double linked list" ."<br>";
+        class nodedll{
+            public $data;
+            public $next;
+            public $prev;
+
+            public function __construct($data){
+                $this->data = $data;
+                $this->next = null;
+                $this->prev = null;
+            }
+        }
+
+        class dll{
+            public $head;
+
+            public function __construct(){
+                $this->head = null;
+            }
+
+            public function dll_push_front($data){
+                $newNodeDll = new nodedll($data);
+                if($this->head == null){
+                    $this->head = $newNodeDll;
+                }else{
+                    $this->head->prev = $newNodeDll;
+                    $newNodeDll->next = $this->head;
+                    $this->head = $newNodeDll;
+                }
+            }
+
+            public function dll_push_back($data){
+                 $newNodeDll = new nodedll($data);
+                if($this->head == null){
+                    $this->head = $newNodeDll;
+                }else{
+                    $temp = $this->head;
+                    while($temp->next != null){
+                        $temp = $temp->next;
+                    }
+
+                    $temp->next = $newNodeDll;
+                    $newNodeDll->prev = $temp;
+                }
+            }
+
+            public function dll_print(){
+                if($this->head == null){
+                    echo "List is empty";
+                }else{
+                    $temp = $this->head;
+                    while($temp != null){
+                        echo $temp->data ."<br>";
+                        $temp = $temp->next;
+                    }
+                }
+
+            }
+        }
+
+        $newDll = new dll();
+        $newDll->dll_push_front(18);
+        $newDll->dll_push_front(20);
+        $newDll->dll_push_front(22);
+        $newDll->dll_push_front(24);
+
+        $newDll->dll_push_back(26);
+        $newDll->dll_push_back(28);
+        $newDll->dll_push_back(30);
+        $newDll->dll_push_back(32);
+        
+        $newDll->dll_print();
+
+        // echo "<pre>";
+        // print_r($newDll);
+
+  //=======================================================================================
+  echo "=====================================================" ."<br>";
+  echo "Double linked list with tail variable" ."<br>";
+
 // class Node {
 //     public $data;
 //     public $next;
