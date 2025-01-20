@@ -158,7 +158,44 @@ echo "double linked list" ."<br>";
   //=======================================================================================
   echo "=====================================================" ."<br>";
   echo "Double linked list with tail variable" ."<br>";
+/*
+    class DllWithTail{
+        public $head;
+        public $tail;
+        public function __construct(){
+            $this->head = null;
+            $this->tail = null;
+        }
 
+        //Insert a node at the end (push back)
+        public function dll_push_back($data){
+            $newNode = new nodedll();
+            //if the list is empty
+            if($this->head == null){
+                $this->head = $newNode;
+                $this->tail = $nreNode; //Tail also point to the new node
+            }else{
+                //Traverse to the end of the list
+                $temp = $this->tail;
+                $temp->next = $newNode; //Link the last node to the new node
+                $newNode ->prev = $temp; //Set the new node's prev to the last node
+                $this->tail = $newNode; //Update the tail to the new node
+            }
+        }
+        
+        //Insert a node at the front (pust_front)
+        public function dll_push_front($data){
+            
+        }
+
+
+
+    }
+
+    
+
+
+*/
 // class Node {
 //     public $data;
 //     public $next;
