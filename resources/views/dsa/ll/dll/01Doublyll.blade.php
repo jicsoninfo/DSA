@@ -255,5 +255,148 @@ echo "double linked list" ."<br>";
 
 
 
+/*
+
+// Node class represents an individual element in the doubly circular linked list
+class Node {
+    public $data;
+    public $next;
+    public $prev;
+
+    // Constructor to initialize node with data
+    public function __construct($data) {
+        $this->data = $data;
+        $this->next = null;
+        $this->prev = null;
+    }
+}
+
+// Doubly Circular Linked List class
+class DoublyCircularLinkedList {
+    public $head = null;
+
+    // Insert a new node at the end of the list
+    public function insert($data) {
+        $newNode = new Node($data);
+
+        // If the list is empty, create the first node which points to itself
+        if ($this->head === null) {
+            $this->head = $newNode;
+            $newNode->next = $newNode;
+            $newNode->prev = $newNode;
+        } else {
+            // Traverse to the last node (the node whose next points to the head)
+            $lastNode = $this->head->prev;
+
+            // Insert new node at the end of the list
+            $lastNode->next = $newNode;
+            $newNode->prev = $lastNode;
+            $newNode->next = $this->head;
+            $this->head->prev = $newNode;
+        }
+    }
+
+    // Delete a node by value
+    public function delete($data) {
+        if ($this->head === null) {
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head;
+
+        // Traverse the list to find the node with the specified data
+        do {
+            if ($current->data == $data) {
+                // If the node to delete is the only node in the list
+                if ($current->next == $current) {
+                    $this->head = null;
+                    unset($current);
+                    echo "Node with value $data deleted\n";
+                    return;
+                }
+
+                // If the node to delete is the head node
+                if ($current == $this->head) {
+                    $this->head = $this->head->next;
+                }
+
+                // Update the next and prev pointers of adjacent nodes
+                $current->prev->next = $current->next;
+                $current->next->prev = $current->prev;
+
+                unset($current);
+                echo "Node with value $data deleted\n";
+                return;
+            }
+            $current = $current->next;
+        } while ($current != $this->head);
+
+        echo "Node with value $data not found\n";
+    }
+
+    // Display the list (forward traversal)
+    public function displayForward() {
+        if ($this->head === null) {
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head;
+        do {
+            echo $current->data . " -> ";
+            $current = $current->next;
+        } while ($current != $this->head);
+
+        echo "(head)\n";  // To show that it's circular
+    }
+
+    // Display the list (backward traversal)
+    public function displayBackward() {
+        if ($this->head === null) {
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head->prev;
+        do {
+            echo $current->data . " <- ";
+            $current = $current->prev;
+        } while ($current != $this->head->prev);
+
+        echo "(tail)\n";  // To show that it's circular
+    }
+}
+
+// Example usage of the Doubly Circular Linked List
+
+// Create a new doubly circular linked list
+$list = new DoublyCircularLinkedList();
+
+// Insert some nodes
+$list->insert(10);
+$list->insert(20);
+$list->insert(30);
+$list->insert(40);
+
+// Display the list forward
+echo "Forward traversal:\n";
+$list->displayForward();
+
+// Display the list backward
+echo "Backward traversal:\n";
+$list->displayBackward();
+
+// Delete a node
+$list->delete(20);
+$list->displayForward();  // Display the list again after deletion
+
+// Delete the head node
+$list->delete(10);
+$list->displayForward();  // Display the list again after deleting the head
+
+*/
+
+
 ?>
 
