@@ -1,8 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Toggle</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+
+            body {
+                background-color: white;
+                color: black;
+                font-family: Arial, sans-serif;
+            }
+
+            header {
+                background-color: #f0f0f0;
+                color: black;
+            }
+
+            button {
+                background-color: #e0e0e0;
+                color: black;
+            }
+
+
+            body.dark-mode {
+                background-color: #121212;  
+                color: white; 
+            }
+
+            header.dark-mode {
+                background-color: #1f1f1f;  
+                color: white;
+            }
+
+            button.dark-mode {
+                background-color: #333; 
+                color: white; 
+            }
+
+            /* Additional Styles */
+            /* h1, p {
+                color: inherit; 
+            } */
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    </header>
+
+    <!-- <main>
+        <h1>Welcome to Dark Mode</h1>
+        <p>This is a simple dark mode toggle implementation.</p>
+    </main> -->
+
+    <!-- <script src="script.js"></script> -->
+
+    <script>
+    const toggleButton = document.getElementById('dark-mode-toggle');
+    const body = document.body;
+    const header = document.querySelector('header');
+    const button = document.querySelector('button');
+
+   
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
+        header.classList.add('dark-mode');
+        button.classList.add('dark-mode');
+    }
+
+  
+    toggleButton.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        header.classList.toggle('dark-mode');
+        button.classList.toggle('dark-mode');
+
+       
+        if (body.classList.contains('dark-mode')) {
+            localStorage.setItem('darkMode', 'enabled');
+        } else {
+            localStorage.removeItem('darkMode');
+        }
+    });
+
+
+</script>
+</body>
+</html>
+
+
+
 <?php
 ///dll01 //Route
 
 
 //Singly linked list
+echo "================================================="."<br>";
 echo "Singly linked list" ."<br>";
          class nodesll{
             public $data;
@@ -159,6 +255,18 @@ echo "double linked list" ."<br>";
   echo "=====================================================" ."<br>";
   echo "Double linked list with tail variable" ."<br>";
 
+  class nodedllT{
+    public $data;
+    public $next;
+    public $prev;
+
+    public function __construct($data){
+        $this->data = $data;
+        $this->next = null;
+        $this->prev = null;
+    }
+
+  }
     class DllWithTail{
         public $head;
         public $tail;
@@ -169,7 +277,7 @@ echo "double linked list" ."<br>";
 
         //Insert a node at the end (push back)
         public function dll_push_back($data){
-            $newNode = new nodedll($data);
+            $newNode = new nodedllT($data);
             //if the list is empty
             if($this->head == null){
                 $this->head = $newNode;
@@ -185,7 +293,7 @@ echo "double linked list" ."<br>";
         
         //Insert a node at the front (pust_front)
         public function dll_push_front($data){
-            $newNode = new nodedll($data);
+            $newNode = new nodedllT($data);
 
             //If the list is empty
             if($this->head == null){
@@ -257,6 +365,96 @@ echo "double linked list" ."<br>";
 
 /*
 
+ //=======================================================================================
+  echo "=====================================================" ."<br>";
+  echo "Doubly Circular linked list" ."<br>";
+
+//Node class represents an individual element in the doubly circular linked list
+class NodeDcll{
+    public $data;
+    public $next;
+    public $prev;
+
+    //Constructor to initialize node with data
+    public function __construct($data){
+        $this->data = $data;
+        $this->next = null;
+        $this->prev = null;
+    }
+}
+
+//Doubly Circular Linked List class
+class DoublyCircularLinkedList{
+    public $head = null;
+
+    //Insert a new node at the end of the list
+    public function insert($data){
+        $newNode = new NodeDcll($data);
+
+        //If the list is empty, create the first node which points to itself
+        if($this->head == null){
+            $this->head = $newNode;
+            $newNode->next = $newNode;
+            $newNode->prev = $newNode;
+        }else{
+            //Traverse to the last node (the node whose next point to the head)
+            $lastNode = $this->head->prev;
+
+            //Insert new node at the end of the list
+            $lastNode->next = $newNode;
+            $newNode->prev = $lastNode;
+            $newNode->next = $this->head;
+            $this->head->prev = $newNode;
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Node class represents an individual element in the doubly circular linked list
 class Node {
     public $data;
@@ -293,6 +491,29 @@ class DoublyCircularLinkedList {
             $newNode->prev = $lastNode;
             $newNode->next = $this->head;
             $this->head->prev = $newNode;
+        }
+    }
+
+    // Insert a new node at the front of the list
+    public function insertAtFront($data) {
+        $newNode = new Node($data);
+
+        // If the list is empty, create the first node which points to itself
+        if ($this->head === null) {
+            $this->head = $newNode;
+            $newNode->next = $newNode;
+            $newNode->prev = $newNode;
+        } else {
+            // Insert new node at the front of the list
+            $firstNode = $this->head;
+
+            $newNode->next = $firstNode;
+            $newNode->prev = $firstNode->prev;
+            $firstNode->prev->next = $newNode;
+            $firstNode->prev = $newNode;
+
+            // Update the head to the new node
+            $this->head = $newNode;
         }
     }
 
@@ -378,6 +599,9 @@ $list->insert(10);
 $list->insert(20);
 $list->insert(30);
 $list->insert(40);
+
+// Insert a node at the front of the list
+$list->insertAtFront(5);
 
 // Display the list forward
 echo "Forward traversal:\n";
