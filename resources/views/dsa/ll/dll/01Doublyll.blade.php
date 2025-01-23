@@ -388,7 +388,7 @@ class DoublyCircularLinkedList{
     public $head = null;
 
     //Insert a new node at the end of the list
-    public function insert($data){
+    public function insertAtBackDcll($data){
         $newNode = new NodeDcll($data);
 
         //If the list is empty, create the first node which points to itself
@@ -407,6 +407,14 @@ class DoublyCircularLinkedList{
             $this->head->prev = $newNode;
 
         }
+    }
+
+    //Insert a new node at the front of the list
+    public function inserAtFrontDcll($data){
+        $newNode = new NodeDcll($data);
+        
+        //If the list is empty, create the first node which points to itself
+        
     }
 
 }
