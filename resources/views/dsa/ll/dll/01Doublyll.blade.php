@@ -414,8 +414,90 @@ class DoublyCircularLinkedList{
         $newNode = new NodeDcll($data);
         
         //If the list is empty, create the first node which points to itself
-        
+        if($this->head == null){
+            $this->head = $newNode;
+            $newNode->next = $newNode;
+            $newNode->prev = $newNode;
+        }else{
+            //Insert new node at the front of the list
+            $firstNode = $this->head;
+
+            $newNode->next = $firstNode;
+            $newNode->prev = $firstNode->prev;
+            $firstNode->prev->next = $newNode;
+
+            //Update the head to the new node
+            $this->head = $newNode;
+        }
     }
+
+    //Delete a node by value
+    public function delete($data){
+        if($this->head == null){
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head;
+        
+        //Traverse the list to find the node with the specified data
+        do{
+            if($current->data == $data){
+                //If the node to delete is the only node in the list
+                if($current->next == $current){
+                    $this->head = null;
+                    unset($current);
+                    echo "Node with value $data deleted\n";
+                    return;
+                }
+
+                //If the node to delete is the head node
+                if($current == $this->head){
+                    $this->head = $this->head->next;
+                }
+
+                //update the next and prev pointers of adjacent nodes
+                $current->prev->next = $current->next;
+                $current->next->prev = $current->prev;
+
+                unset($current);
+                echo "Node with value $data deleted\n";
+                return;
+            }
+                $current = $current->next;
+        }while ($current != $this->head);
+        
+        echo "Node with value $data not found\n";
+    }
+
+    //Display the list (forward traversal)
+    public function displayForward(){
+        if($this->head == null){
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head;
+        do{
+            echo $current->data . " -> ";
+            $current = $current->next;
+        } while($current != $this->head);
+
+        echo "(head)\n"; //To show that it's ciruclar
+    }
+
+    //Display the list(backword traversal)
+    public function displayBackward(){
+        if($this->head == null){
+            echo "List is empty\n";
+            return;
+        }
+
+        $current = $this->head->prev;
+        do
+    }
+
+
 
 }
 
