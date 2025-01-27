@@ -363,7 +363,7 @@ echo "double linked list" ."<br>";
 
 
 
-/*
+
 
  //=======================================================================================
   echo "=====================================================" ."<br>";
@@ -425,10 +425,51 @@ class DoublyCircularLinkedList{
             $newNode->next = $firstNode;
             $newNode->prev = $firstNode->prev;
             $firstNode->prev->next = $newNode;
+            $firstNode->prev = $newNode;
 
             //Update the head to the new node
             $this->head = $newNode;
         }
+    }
+
+    //Insert a new node at a particular position in the list
+    public function insertAtPositionDcll($position, $data){
+        //If position is less then 0, it's an invalid poisiotn.
+        if($position < 0){
+            echo "Invalid positon\n";
+            return;
+        }
+
+        $newNode = new NodeDcll($data);
+
+        //Case 1: Inserting at the front (position 0)
+        if($position ==0){
+            $this->inserAtFrontDcll($data);
+            return;
+        }
+
+        //Traverse the list to find the correct position
+        $current = $this->head;
+        $index = 0;
+
+        //Traverse until the last node
+        do{
+            if($index == $position -1){
+                //Insert new node after the current node
+                $newNode->next = $current->next;
+                $newNode->prev = $current;
+                $current->next->prev = $newNode;
+                $current->next = $newNode;
+                echo "Node with value $data inserted at position $position\n";
+                return;
+            }
+            $current = $current->next;
+            $index++;
+        } while($current != $this->head); //Stop when we circle back to the head
+
+        //If we get here, positoin is beyond the length of the list, insert at the end
+        $this->insertAtBackDcll($data);
+
     }
 
     //Delete a node by value
@@ -494,152 +535,215 @@ class DoublyCircularLinkedList{
         }
 
         $current = $this->head->prev;
-        do
+        do{
+            echo $current->data . " <- ";
+            $current = $current->prev;
+        }while ($current != $this->head->prev);
+
+        echo "(tail)\n" ; //To show that it's circular
     }
 
 
 
 }
 
+//Example usage of the Double Circular Linked List
+
+//Create a new double circular linked list
+
+$list = new DoublyCircularLinkedList();
+
+//Insert some nodes
+$list->insertAtBackDcll(10);
+$list->insertAtBackDcll(20);
+$list->insertAtBackDcll(30);
+$list->insertAtBackDcll(40);
+
+//Insert a node at the front of the list
+$list->inserAtFrontDcll(5);
+
+//Display the list forward
+echo "Forward traversal:\n" . "<br>";
+$list->displayForward();
+
+//Display the list backward
+echo "Backward traversal:\n" . "<br>";
+$list->displayBackward();
+
+//Delete a node
+echo "<br>";
+$list->delete(20);
+$list->displayForward(); //Display the list again after deletion
+
+//Delete the head node
+echo "<br>";
+$list->delete(10);
+$list->displayForward(); //Display the list again after deleting the head
+echo "<br>";
+
+
+// Insert at position 2 (between 20 and 30)
+$list->insertAtPositionDcll(2, 25);
+
+// Display the list after insertion
+echo "<br>";
+echo "After inserting at position 2:\n";
+$list->displayForward();
+
+// Insert at position 0 (at the front)
+$list->insertAtPositionDcll(0, 5);
+
+// Display the list after insertion
+echo "<br>";
+echo "After inserting at position 0:\n";
+$list->displayForward();
+echo "<br>";
 
 
 
 
+//=======================================================================================
+  echo "=====================================================" ."<br>";
+  echo "Single Circular linked list" ."<br>";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Node class represents an individual element in the doubly circular linked list
-class Node {
+//Node class represents an individual element in the sindle circular linked list
+class NodeScll{
     public $data;
     public $next;
-    public $prev;
 
-    // Constructor to initialize node with data
-    public function __construct($data) {
+    //Constructor to initialize node with data
+    public function __construct($data){
         $this->data = $data;
         $this->next = null;
-        $this->prev = null;
     }
 }
 
-// Doubly Circular Linked List class
-class DoublyCircularLinkedList {
+//Single Circular Linked List class
+class SingleCircularLinkedList{
     public $head = null;
 
-    // Insert a new node at the end of the list
-    public function insert($data) {
-        $newNode = new Node($data);
+    //Insert a new node at the end of the list
+    public function insertAtBackScll($data){
+        $newNode = new NodeScll($data);
 
-        // If the list is empty, create the first node which points to itself
-        if ($this->head === null) {
+        //If the list is empty, create the first node which points to itself
+        if($this->head == null){
             $this->head = $newNode;
-            $newNode->next = $newNode;
-            $newNode->prev = $newNode;
-        } else {
-            // Traverse to the last node (the node whose next points to the head)
-            $lastNode = $this->head->prev;
+            $newNode->next = $newNode; //Points to itself to create the circular link
+        }else{
+            //Traverse to the last node (the node whose next points to the head)
+            $lastNode = $this->head;
+            while($lastNode->next != $this->head){
+                $lastNode = $lastNode->next;
+            }
 
-            // Insert new node at the end of the list
+            //Insert the new node at the end
             $lastNode->next = $newNode;
-            $newNode->prev = $lastNode;
-            $newNode->next = $this->head;
-            $this->head->prev = $newNode;
+            $newNode->next = $this->head; //Point it back to the head to maintain the circular nature
+
         }
     }
 
-    // Insert a new node at the front of the list
-    public function insertAtFront($data) {
-        $newNode = new Node($data);
+    //Insert a node at the front of the list
+    public function insertAtFrontScll($data){
+        $newNode = new NodeScll($data);
 
         // If the list is empty, create the first node which points to itself
-        if ($this->head === null) {
+        if($this->head == null){
             $this->head = $newNode;
-            $newNode->next = $newNode;
-            $newNode->prev = $newNode;
-        } else {
-            // Insert new node at the front of the list
-            $firstNode = $this->head;
+            $newNode->next = $newNode; // Point ot itself to create the circular link
 
-            $newNode->next = $firstNode;
-            $newNode->prev = $firstNode->prev;
-            $firstNode->prev->next = $newNode;
-            $firstNode->prev = $newNode;
+        }else{
+            // Insert the new node at the front of the list
+            $newNode->next = $this->head;
+            // Traverse to the last node to update its next pointer
+            $lastNode = $this->head;
+            while($lastNode->next != $this->head){
+                $lastNode = $lastNode->next;
+            }
 
+            $lastNode->next = $newNode;
             // Update the head to the new node
             $this->head = $newNode;
         }
+
+
+    }
+
+    // Insert a new node at a particular positioni in the list
+    public function insertAtPositionScll($position, $data){
+        // If position is less than 0, it's an invalid position
+        if($position <0 ){
+            echo "Invalid position\n";
+            return;
+        }
+
+        $newNode = new NodeScll($data);
+
+        // Case 1: Inserting at the front (position 0)
+        if($position == 0){
+            $this->insertAtFrontScll($data);
+            return;
+        }
+
+        // Traverse the list to find the correct position
+        $current = $this->head;
+        $index = 0;
+
+        // Traverse until the last node
+        do{
+            if($index == $position -1){
+                //Insert new node after the current node
+                $newNode->next = $current->next;
+                $current->next = $newNode;
+                echo "Node with value $data inserted at position $position\n";
+                return;
+            }
+
+            $current = $current->next;
+            $index++;
+        } while($current != $this->head); // Stop when we circle back to the head
+
+        // If we get here, positon is beyond the length of the list, insert at the end
+        $this->insertAtBackScll($data);
+
+
     }
 
     // Delete a node by value
-    public function delete($data) {
-        if ($this->head === null) {
+    public function delete($data){
+        if($this->head == null){
             echo "List is empty\n";
             return;
         }
 
         $current = $this->head;
+        $previous = null;
 
-        // Traverse the list to find the node with the specified data
-        do {
-            if ($current->data == $data) {
-                // If the node to delete is the only node in the list
-                if ($current->next == $current) {
-                    $this->head = null;
-                    unset($current);
-                    echo "Node with value $data deleted\n";
-                    return;
-                }
+        // Traaverse the list to find the node with the specified data
+        do{
+            if($current->next == $current){
+                $this->head = null;
+                unset($current);
+                echo "Node with value $data deleted \n";
+                return;
+            //}
 
                 // If the node to delete is the head node
-                if ($current == $this->head) {
+                if($current == $this->head){
                     $this->head = $this->head->next;
                 }
 
-                // Update the next and prev pointers of adjacent nodes
-                $current->prev->next = $current->next;
-                $current->next->prev = $current->prev;
+                // Update the next pointer of the previous node
+                if($previous != null){
+                    $previous->next = $current->next;
+                }
 
                 unset($current);
                 echo "Node with value $data deleted\n";
-                return;
+                return; 
             }
+            $previoud = $current;
             $current = $current->next;
         } while ($current != $this->head);
 
@@ -647,70 +751,79 @@ class DoublyCircularLinkedList {
     }
 
     // Display the list (forward traversal)
-    public function displayForward() {
-        if ($this->head === null) {
+    public function displayForward(){
+        if($this->head == null){
             echo "List is empty\n";
             return;
         }
 
         $current = $this->head;
-        do {
+        do{
             echo $current->data . " -> ";
             $current = $current->next;
-        } while ($current != $this->head);
+        } while( $current != $this->head);
 
-        echo "(head)\n";  // To show that it's circular
+        echo "(head)\n"; // To show that it's circular
     }
 
-    // Display the list (backward traversal)
-    public function displayBackward() {
-        if ($this->head === null) {
-            echo "List is empty\n";
-            return;
-        }
 
-        $current = $this->head->prev;
-        do {
-            echo $current->data . " <- ";
-            $current = $current->prev;
-        } while ($current != $this->head->prev);
-
-        echo "(tail)\n";  // To show that it's circular
-    }
+   
 }
 
-// Example usage of the Doubly Circular Linked List
+// Ecample usage of the Single Circular Linked List
 
-// Create a new doubly circular linked list
-$list = new DoublyCircularLinkedList();
+$list = new SingleCircularLinkedList();
 
 // Insert some nodes
-$list->insert(10);
-$list->insert(20);
-$list->insert(30);
-$list->insert(40);
+$list->insertAtBackScll(10);
+$list->insertAtBackScll(20);
+$list->insertAtBackScll(30);
+$list->insertAtBackScll(40);
 
 // Insert a node at the front of the list
-$list->insertAtFront(5);
+$list->insertAtFrontScll(5);
 
 // Display the list forward
 echo "Forward traversal:\n";
 $list->displayForward();
 
-// Display the list backward
-echo "Backward traversal:\n";
-$list->displayBackward();
-
 // Delete a node
+echo "<br>";
 $list->delete(20);
-$list->displayForward();  // Display the list again after deletion
+$list->displayForward(); // Display the list again after deletion
 
 // Delete the head node
-$list->delete(10);
-$list->displayForward();  // Display the list again after deleting the head
+echo "<br>";
+$list->delete(5);
+$list->displayForward(); // Display the list again after deleting the head
+echo "<br>";
 
-*/
+// Insert at position 2 (between 10 and 30)
+$list->insertAtPositionScll(2, 25);
 
+// Display the list after insertion
+echo "<br>";
+echo "After inserting at position 2:\n";
+$list->displayForward();
+
+// Insert at position 0 (at the front)
+$list->insertAtPositionScll(0, 15);
+
+// Display the list after insertion
+echo "<br>";
+echo "After inserting at position 0:\n";
+$list->displayForward();
+echo "<br>";
 
 ?>
 
+
+
+
+
+
+<?php
+/*
+
+ */
+?>
